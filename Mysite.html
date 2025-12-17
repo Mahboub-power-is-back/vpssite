@@ -93,6 +93,9 @@
             text-decoration: none;
             font-weight: 600;
             transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
         }
         
         .cta-button:hover {
@@ -225,6 +228,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
+            position: relative;
         }
         
         .script-card:hover {
@@ -236,6 +240,10 @@
             color: white;
             padding: 20px;
             text-align: center;
+        }
+        
+        .script-card:nth-child(2) .script-header {
+            background-color: var(--secondary);
         }
         
         .script-header h3 {
@@ -280,10 +288,13 @@
             position: absolute;
             top: -10px;
             right: 20px;
+            z-index: 1;
         }
         
-        .script-card {
-            position: relative;
+        .purchase-btn {
+            width: 100%;
+            text-align: center;
+            display: block;
         }
         
         /* Testimonials */
@@ -397,12 +408,128 @@
             color: white;
         }
         
+        .contact-info li {
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
         .copyright {
             text-align: center;
             padding-top: 30px;
             border-top: 1px solid #444;
             color: #aaa;
             font-size: 0.9rem;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+        }
+        
+        .close-modal {
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .purchase-details {
+            background-color: #f5f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .purchase-details h4 {
+            margin-top: 0;
+            color: var(--secondary);
+        }
+        
+        .purchase-details ol {
+            padding-left: 20px;
+        }
+        
+        .purchase-details li {
+            margin-bottom: 10px;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .secondary-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .secondary-button:hover {
+            background-color: #5a6268;
         }
         
         /* Responsive Design */
@@ -423,6 +550,7 @@
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
             }
             
             .nav-links.active {
@@ -449,6 +577,20 @@
             
             .hero-text h1 {
                 font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .script-price {
+                font-size: 2rem;
             }
         }
     </style>
@@ -487,7 +629,7 @@
                     <a href="#scripts" class="cta-button">Browse Scripts</a>
                 </div>
                 <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="VPS Server Dashboard">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="VPS Server Dashboard">
                 </div>
             </div>
         </div>
@@ -570,13 +712,13 @@
                             <li><i class="fas fa-check"></i> 6 months of updates</li>
                             <li><i class="fas fa-check"></i> Email support</li>
                         </ul>
-                        <a href="#contact" class="cta-button" style="width: 100%; text-align: center; display: block;">Purchase Now</a>
+                        <button class="cta-button purchase-btn" data-plan="Basic">Purchase Now</button>
                     </div>
                 </div>
                 
                 <div class="script-card">
                     <div class="popular-tag">MOST POPULAR</div>
-                    <div class="script-header" style="background-color: var(--secondary);">
+                    <div class="script-header">
                         <h3>Professional</h3>
                         <p>For businesses & growing applications</p>
                     </div>
@@ -592,7 +734,7 @@
                             <li><i class="fas fa-check"></i> Priority support</li>
                             <li><i class="fas fa-check"></i> Backup automation</li>
                         </ul>
-                        <a href="#contact" class="cta-button" style="width: 100%; text-align: center; display: block; background-color: var(--secondary);">Purchase Now</a>
+                        <button class="cta-button purchase-btn" data-plan="Professional">Purchase Now</button>
                     </div>
                 </div>
                 
@@ -613,7 +755,7 @@
                             <li><i class="fas fa-check"></i> 24/7 phone support</li>
                             <li><i class="fas fa-check"></i> Custom script modifications</li>
                         </ul>
-                        <a href="#contact" class="cta-button" style="width: 100%; text-align: center; display: block;">Purchase Now</a>
+                        <button class="cta-button purchase-btn" data-plan="Enterprise">Purchase Now</button>
                     </div>
                 </div>
             </div>
@@ -686,10 +828,10 @@
                 <div class="footer-column">
                     <h3>VPS Script Pro</h3>
                     <p>Providing premium VPS automation scripts since 2018. Our solutions help developers and businesses deploy servers faster and more securely.</p>
-                    <div style="margin-top: 20px;">
-                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
-                        <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-discord"></i></a>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -705,19 +847,19 @@
                 <div class="footer-column">
                     <h3>Support</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Community Forum</a></li>
-                        <li><a href="#">Contact Support</a></li>
-                        <li><a href="#">Refund Policy</a></li>
+                        <li><a href="#contact">Documentation</a></li>
+                        <li><a href="#contact">FAQ</a></li>
+                        <li><a href="#contact">Community Forum</a></li>
+                        <li><a href="#contact">Contact Support</a></li>
+                        <li><a href="#contact">Refund Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Contact Us</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> sales@vpsscriptpro.com</li>
-                        <li><i class="fas fa-phone" style="margin-right: 10px;"></i> +1 (555) 123-4567</li>
-                        <li><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 123 Tech Street, San Francisco, CA</li>
+                    <ul class="footer-links contact-info">
+                        <li><i class="fas fa-envelope"></i> sales@vpsscriptpro.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, San Francisco, CA</li>
                     </ul>
                 </div>
             </div>
@@ -732,14 +874,14 @@
         document.querySelector('.mobile-menu').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
         });
-        
+
         // Close mobile menu when clicking a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function() {
                 document.querySelector('.nav-links').classList.remove('active');
             });
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -757,18 +899,84 @@
                 }
             });
         });
-        
-        // Simple form submission simulation
-        document.querySelectorAll('.cta-button').forEach(button => {
-            if(button.getAttribute('href') === '#contact') {
-                button.addEventListener('click', function(e) {
-                    if(this.getAttribute('href') === '#contact') {
-                        e.preventDefault();
-                        alert("Thank you for your interest! In a real implementation, this would redirect to a purchase page or contact form.");
-                    }
-                });
+
+        // Purchase button functionality
+        document.querySelectorAll('.purchase-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const planName = this.getAttribute('data-plan');
+                showPurchaseModal(planName);
+            });
+        });
+
+        // Function to show purchase modal
+        function showPurchaseModal(scriptName) {
+            // Create modal HTML
+            const modalHTML = `
+                <div class="modal-overlay">
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3>Purchase ${scriptName} Script</h3>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <p>Thank you for your interest in our <strong>${scriptName}</strong> script!</p>
+                            <p>In a real implementation, this would redirect to a secure payment gateway or contact form.</p>
+                            
+                            <div class="purchase-details">
+                                <h4>Next Steps:</h4>
+                                <ol>
+                                    <li>Complete payment via PayPal, Credit Card, or Crypto</li>
+                                    <li>Receive download link and license key via email</li>
+                                    <li>Access detailed documentation and installation guide</li>
+                                    <li>Get support via our dedicated customer portal</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="modal-actions">
+                                <button class="cta-button" id="simulate-purchase">Simulate Purchase</button>
+                                <button class="secondary-button" id="close-modal-btn">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal to page
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            // Add event listeners for modal
+            document.querySelector('.close-modal').addEventListener('click', closeModal);
+            document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+            document.getElementById('simulate-purchase').addEventListener('click', function() {
+                alert(`Purchase simulation complete! The ${scriptName} script would now be added to your account.`);
+                closeModal();
+            });
+            
+            // Close modal when clicking outside
+            document.querySelector('.modal-overlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Close modal function
+        function closeModal() {
+            const modal = document.querySelector('.modal-overlay');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
             }
         });
     </script>
 </body>
-</html>
+    </html>
