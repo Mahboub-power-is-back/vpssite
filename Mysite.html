@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPS Script Pro | Premium Virtual Server Scripts</title>
+    <title>VPS Script Manager - SSHWS, VLESS, VMESS, Trojan, SlowDNS, Shadowsocks</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,380 +14,347 @@
         }
         
         :root {
-            --primary: #2a5bd7;
-            --secondary: #1a3a8f;
-            --accent: #ff6b35;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --success: #28a745;
+            --primary-color: #1a237e;
+            --secondary-color: #3949ab;
+            --accent-color: #00bcd4;
+            --dark-color: #0d1430;
+            --light-color: #f5f7ff;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
         }
         
         body {
+            background-color: #f0f2f5;
+            color: #333;
             line-height: 1.6;
-            color: var(--dark);
-            background-color: #f5f7ff;
         }
         
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
         
-        /* Header & Navigation */
+        /* Header Styles */
         header {
-            background-color: white;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
-        nav {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
         }
         
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
             display: flex;
             align-items: center;
+            gap: 10px;
         }
         
         .logo i {
-            margin-right: 10px;
-            color: var(--accent);
+            font-size: 2.2rem;
+            color: var(--accent-color);
         }
         
-        .nav-links {
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
             display: flex;
             list-style: none;
+            gap: 1.5rem;
         }
         
-        .nav-links li {
-            margin-left: 30px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .cta-button {
-            background-color: var(--primary);
+        nav a {
             color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
             text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
         }
         
-        .cta-button:hover {
-            background-color: var(--secondary);
+        nav a:hover {
+            color: var(--accent-color);
         }
         
-        .mobile-menu {
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
             display: none;
+            background: none;
+            border: none;
+            color: white;
             font-size: 1.5rem;
             cursor: pointer;
         }
         
         /* Hero Section */
         .hero {
-            padding: 100px 0;
-            background: linear-gradient(135deg, rgba(42, 91, 215, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
-        }
-        
-        .hero-text h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--secondary);
-            line-height: 1.2;
-        }
-        
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--gray);
-        }
-        
-        .hero-image {
-            flex: 1;
-            min-width: 300px;
+            padding: 5rem 0;
+            background: linear-gradient(rgba(13, 20, 48, 0.9), rgba(13, 20, 48, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
             text-align: center;
         }
         
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
         }
         
-        .highlight {
-            color: var(--accent);
-            font-weight: 700;
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid var(--accent-color);
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background: transparent;
+            color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         /* Features Section */
+        .features {
+            padding: 5rem 0;
+        }
+        
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 3rem;
         }
         
         .section-title h2 {
             font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 15px;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
         }
         
         .section-title p {
-            color: var(--gray);
+            color: #666;
+            font-size: 1.1rem;
             max-width: 700px;
             margin: 0 auto;
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: white;
         }
         
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            gap: 2rem;
         }
         
         .feature-card {
-            background-color: var(--light);
-            padding: 30px;
+            background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
         }
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
         
         .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: var(--secondary);
-        }
-        
-        /* Scripts Section */
-        .scripts {
-            padding: 100px 0;
-            background-color: #f5f7ff;
-        }
-        
-        .scripts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .script-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-            position: relative;
-        }
-        
-        .script-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .script-header {
-            background-color: var(--primary);
+            background: var(--primary-color);
             color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .script-card:nth-child(2) .script-header {
-            background-color: var(--secondary);
-        }
-        
-        .script-header h3 {
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-        
-        .script-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 20px 0;
-        }
-        
-        .script-body {
-            padding: 30px;
-        }
-        
-        .script-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .script-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-        
-        .script-features li i {
-            color: var(--success);
-            margin-right: 10px;
-        }
-        
-        .popular-tag {
-            background-color: var(--accent);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            z-index: 1;
-        }
-        
-        .purchase-btn {
-            width: 100%;
-            text-align: center;
-            display: block;
-        }
-        
-        /* Testimonials */
-        .testimonials {
-            padding: 100px 0;
-            background-color: white;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: var(--light);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary);
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 700;
-            margin-right: 15px;
-        }
-        
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            text-align: center;
-        }
-        
-        .cta-section h2 {
             font-size: 2.5rem;
-            margin-bottom: 20px;
         }
         
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+        .feature-content {
+            padding: 1.5rem;
         }
         
-        .cta-button.large {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            background-color: var(--accent);
+        .feature-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
         }
         
-        .cta-button.large:hover {
-            background-color: #e55a2b;
+        .feature-content p {
+            color: #666;
+            margin-bottom: 1.2rem;
+        }
+        
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tag {
+            background: #e8eaf6;
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Installation Section */
+        .installation {
+            background: var(--light-color);
+            padding: 5rem 0;
+        }
+        
+        .code-container {
+            background: var(--dark-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        pre {
+            color: #4fc3f7;
+            font-size: 1rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .code-comment {
+            color: #81c784;
+        }
+        
+        /* Protocols Section */
+        .protocols {
+            padding: 5rem 0;
+        }
+        
+        .protocols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .protocol-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .protocol-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .protocol-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .protocol-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
         }
         
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background: var(--dark-color);
             color: white;
-            padding: 70px 0 30px;
+            padding: 3rem 0 1.5rem;
         }
         
         .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
         }
         
         .footer-column h3 {
             font-size: 1.3rem;
-            margin-bottom: 25px;
-            color: white;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
         }
         
         .footer-links {
@@ -395,243 +362,109 @@
         }
         
         .footer-links li {
-            margin-bottom: 15px;
+            margin-bottom: 0.8rem;
         }
         
         .footer-links a {
-            color: #aaa;
+            color: #ccc;
             text-decoration: none;
             transition: color 0.3s;
         }
         
         .footer-links a:hover {
-            color: white;
-        }
-        
-        .contact-info li {
-            display: flex;
-            align-items: center;
-        }
-        
-        .contact-info i {
-            margin-right: 10px;
-            color: var(--accent);
-            width: 20px;
-        }
-        
-        .social-links {
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            color: white;
-            margin-right: 15px;
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
         
         .copyright {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #444;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #aaa;
             font-size: 0.9rem;
         }
         
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        
-        .modal {
-            background-color: white;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .modal-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 10px 10px 0 0;
-        }
-        
-        .modal-header h3 {
-            margin: 0;
-        }
-        
-        .close-modal {
-            font-size: 1.8rem;
-            cursor: pointer;
-            line-height: 1;
-        }
-        
-        .modal-body {
-            padding: 30px;
-        }
-        
-        .purchase-details {
-            background-color: #f5f7ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        .purchase-details h4 {
-            margin-top: 0;
-            color: var(--secondary);
-        }
-        
-        .purchase-details ol {
-            padding-left: 20px;
-        }
-        
-        .purchase-details li {
-            margin-bottom: 10px;
-        }
-        
-        .modal-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .secondary-button {
-            background-color: #6c757d;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .secondary-button:hover {
-            background-color: #5a6268;
-        }
-        
         /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
+            .header-content {
                 flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 10px 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero-content {
-                flex-direction: column;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
                 text-align: center;
+                gap: 1rem;
             }
             
-            .hero-text h1 {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
                 font-size: 2.2rem;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-text h1 {
-                font-size: 1.8rem;
+            
+            .hero p {
+                font-size: 1rem;
             }
             
             .section-title h2 {
                 font-size: 2rem;
             }
             
-            .script-price {
-                font-size: 2rem;
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1.5rem;
+                right: 20px;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+                margin-top: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <!-- Header -->
     <header>
         <div class="container">
-            <nav>
+            <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-server"></i>
-                    VPS Script Pro
+                    <h1>VPS <span>Script Manager</span></h1>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#scripts">Scripts</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <a href="#scripts" class="cta-button">Buy Now</a>
-                <div class="mobile-menu">
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <i class="fas fa-bars"></i>
-                </div>
-            </nav>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#protocols">Protocols</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Premium VPS Scripts for <span class="highlight">Optimal Performance</span></h1>
-                    <p>Automate your virtual server setup with our powerful, easy-to-use scripts. Save time, reduce errors, and get your VPS running in minutes instead of hours.</p>
-                    <a href="#scripts" class="cta-button">Browse Scripts</a>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="VPS Server Dashboard">
-                </div>
-            </div>
+            <h2>Powerful VPS Script for All Your Proxy Needs</h2>
+            <p>Deploy SSHWS, VLESS, VMESS, Trojan, SlowDNS, and Shadowsocks with a single command. Easy to use, fast, and reliable script for managing your VPS proxy services.</p>
+            <a href="#installation" class="cta-button">Get Started Now <i class="fas fa-arrow-right"></i></a>
         </div>
     </section>
 
@@ -639,185 +472,168 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>Why Choose Our VPS Scripts</h2>
-                <p>Our scripts are designed with performance, security, and ease-of-use in mind</p>
+                <h2>Script Features</h2>
+                <p>Our all-in-one script provides everything you need to set up a secure proxy server on your VPS</p>
             </div>
+            
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Lightning Fast Setup</h3>
-                    <p>Deploy fully configured VPS instances in under 5 minutes. No manual configuration needed.</p>
-                </div>
+                <!-- Feature 1 -->
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Enhanced Security</h3>
-                    <p>Built-in security hardening, firewall configuration, and automatic security updates.</p>
+                    <div class="feature-content">
+                        <h3>Multi-Protocol Support</h3>
+                        <p>Support for all popular proxy protocols: SSHWS, VLESS, VMESS, Trojan, SlowDNS, and Shadowsocks. Choose what works best for your needs.</p>
+                        <div class="feature-tags">
+                            <span class="tag">SSHWS</span>
+                            <span class="tag">VLESS</span>
+                            <span class="tag">VMESS</span>
+                            <span class="tag">Trojan</span>
+                            <span class="tag">SlowDNS</span>
+                            <span class="tag">Shadowsocks</span>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Feature 2 -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>Optimized Performance</h3>
-                    <p>Pre-configured for maximum performance with caching, compression, and optimization settings.</p>
+                    <div class="feature-content">
+                        <h3>Fast Installation</h3>
+                        <p>Get your proxy server up and running in minutes with our one-line installation script. No complex configuration needed.</p>
+                        <div class="feature-tags">
+                            <span class="tag">One-Command Setup</span>
+                            <span class="tag">Auto Configuration</span>
+                            <span class="tag">Quick Deployment</span>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Feature 3 -->
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <h3>Auto-Scaling</h3>
-                    <p>Scripts include auto-scaling configurations to handle traffic spikes automatically.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
+                    <div class="feature-content">
+                        <h3>Easy Management</h3>
+                        <p>Simple menu-driven interface to manage all your proxy services. Start, stop, restart, or reconfigure with ease.</p>
+                        <div class="feature-tags">
+                            <span class="tag">User-Friendly Menu</span>
+                            <span class="tag">Service Management</span>
+                            <span class="tag">Logs Viewer</span>
+                        </div>
                     </div>
-                    <h3>24/7 Support</h3>
-                    <p>Get expert support whenever you need it. Our team is available to help you with any issues.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-code-branch"></i>
-                    </div>
-                    <h3>Regular Updates</h3>
-                    <p>We continuously update our scripts to include the latest features and security patches.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Scripts Section -->
-    <section class="scripts" id="scripts">
+    <!-- Installation Section -->
+    <section class="installation" id="installation">
         <div class="container">
             <div class="section-title">
-                <h2>Choose Your Script Package</h2>
-                <p>Select the perfect script package for your virtual server needs</p>
+                <h2>Quick Installation</h2>
+                <p>Copy and paste the following command to install the script on your VPS. Requirements: Ubuntu/Debian system with root access.</p>
             </div>
-            <div class="scripts-grid">
-                <div class="script-card">
-                    <div class="script-header">
-                        <h3>Basic</h3>
-                        <p>For small projects & personal use</p>
-                    </div>
-                    <div class="script-body">
-                        <div class="script-price">$49</div>
-                        <ul class="script-features">
-                            <li><i class="fas fa-check"></i> Basic VPS setup & configuration</li>
-                            <li><i class="fas fa-check"></i> LAMP/LEMP stack installation</li>
-                            <li><i class="fas fa-check"></i> Firewall configuration</li>
-                            <li><i class="fas fa-check"></i> Basic security hardening</li>
-                            <li><i class="fas fa-check"></i> 6 months of updates</li>
-                            <li><i class="fas fa-check"></i> Email support</li>
-                        </ul>
-                        <button class="cta-button purchase-btn" data-plan="Basic">Purchase Now</button>
-                    </div>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Installation Command</span>
+                    <button class="copy-btn" id="copyBtn">Copy Code</button>
                 </div>
-                
-                <div class="script-card">
-                    <div class="popular-tag">MOST POPULAR</div>
-                    <div class="script-header">
-                        <h3>Professional</h3>
-                        <p>For businesses & growing applications</p>
-                    </div>
-                    <div class="script-body">
-                        <div class="script-price">$129</div>
-                        <ul class="script-features">
-                            <li><i class="fas fa-check"></i> Everything in Basic</li>
-                            <li><i class="fas fa-check"></i> Advanced security configuration</li>
-                            <li><i class="fas fa-check"></i> Performance optimization</li>
-                            <li><i class="fas fa-check"></i> Auto-scaling configuration</li>
-                            <li><i class="fas fa-check"></i> Database optimization</li>
-                            <li><i class="fas fa-check"></i> 1 year of updates</li>
-                            <li><i class="fas fa-check"></i> Priority support</li>
-                            <li><i class="fas fa-check"></i> Backup automation</li>
-                        </ul>
-                        <button class="cta-button purchase-btn" data-plan="Professional">Purchase Now</button>
-                    </div>
-                </div>
-                
-                <div class="script-card">
-                    <div class="script-header">
-                        <h3>Enterprise</h3>
-                        <p>For large-scale deployments</p>
-                    </div>
-                    <div class="script-body">
-                        <div class="script-price">$299</div>
-                        <ul class="script-features">
-                            <li><i class="fas fa-check"></i> Everything in Professional</li>
-                            <li><i class="fas fa-check"></i> Multi-server clustering</li>
-                            <li><i class="fas fa-check"></i> Load balancing setup</li>
-                            <li><i class="fas fa-check"></i> Advanced monitoring</li>
-                            <li><i class="fas fa-check"></i> Disaster recovery setup</li>
-                            <li><i class="fas fa-check"></i> Lifetime updates</li>
-                            <li><i class="fas fa-check"></i> 24/7 phone support</li>
-                            <li><i class="fas fa-check"></i> Custom script modifications</li>
-                        </ul>
-                        <button class="cta-button purchase-btn" data-plan="Enterprise">Purchase Now</button>
-                    </div>
-                </div>
+                <pre><code># Update system packages
+apt update && apt upgrade -y
+
+# Download and run the installation script
+wget https://raw.githubusercontent.com/vps-script-manager/main/install.sh
+
+# Make the script executable
+chmod +x install.sh
+
+# Run the installation
+./install.sh
+
+# Follow the on-screen instructions to configure your proxy services</code></pre>
+            </div>
+            
+            <div style="margin-top: 2rem; background-color: #e3f2fd; padding: 1.5rem; border-radius: 10px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Important Notes:</h3>
+                <ul style="padding-left: 1.5rem; color: #555;">
+                    <li>Make sure you have a fresh Ubuntu/Debian VPS (recommended: Ubuntu 20.04+)</li>
+                    <li>Run the script as root user or with sudo privileges</li>
+                    <li>The script will automatically configure firewall (UFW/iptables)</li>
+                    <li>After installation, you can access the management menu with: <code style="background: #e8eaf6; padding: 2px 5px; border-radius: 3px;">vps-menu</code></li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
+    <!-- Protocols Section -->
+    <section class="protocols" id="protocols">
         <div class="container">
             <div class="section-title">
-                <h2>What Our Customers Say</h2>
-                <p>Thousands of developers and businesses trust our VPS scripts</p>
+                <h2>Supported Protocols</h2>
+                <p>Our script supports the most secure and efficient proxy protocols available</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "The Professional script saved me hours of configuration time. My server setup is now automated and runs perfectly. Highly recommended!"
+            
+            <div class="protocols-grid">
+                <!-- Protocol 1 -->
+                <div class="protocol-card">
+                    <div class="protocol-icon">
+                        <i class="fas fa-key"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MJ</div>
-                        <div>
-                            <h4>Michael Johnson</h4>
-                            <p>CTO, TechSolutions Inc.</p>
-                        </div>
-                    </div>
+                    <h3>SSHWS</h3>
+                    <p>SSH over WebSocket for bypassing restrictive networks</p>
                 </div>
                 
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "As a freelance developer, I use the Basic script for all my client projects. It's reliable, secure, and gets the job done every time."
+                <!-- Protocol 2 -->
+                <div class="protocol-card">
+                    <div class="protocol-icon">
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SR</div>
-                        <div>
-                            <h4>Sarah Rodriguez</h4>
-                            <p>Freelance Web Developer</p>
-                        </div>
-                    </div>
+                    <h3>VLESS</h3>
+                    <p>Lightweight and fast XTLS-based protocol with improved performance</p>
                 </div>
                 
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "We migrated 50+ servers using the Enterprise script package. The multi-server clustering feature alone was worth the investment."
+                <!-- Protocol 3 -->
+                <div class="protocol-card">
+                    <div class="protocol-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">DW</div>
-                        <div>
-                            <h4>David Williams</h4>
-                            <p>System Administrator, CloudCorp</p>
-                        </div>
+                    <h3>VMESS</h3>
+                    <p>Secure and reliable protocol with authentication and encryption</p>
+                </div>
+                
+                <!-- Protocol 4 -->
+                <div class="protocol-card">
+                    <div class="protocol-icon">
+                        <i class="fas fa-ghost"></i>
                     </div>
+                    <h3>Trojan</h3>
+                    <p>Disguises traffic as HTTPS to avoid detection and blocking</p>
+                </div>
+                
+                <!-- Protocol 5 -->
+                <div class="protocol-card">
+                    <div class="protocol-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>SlowDNS</h3>
+                    <p>Uses DNS tunneling for stable connections in restricted networks</p>
+                </div>
+                
+                <!-- Protocol 6 -->
+                <div class="protocol-card">
+                    <div class="protocol-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Shadowsocks</h3>
+                    <p>Fast and lightweight SOCKS5 proxy with strong encryption</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Automate Your VPS Setup?</h2>
-            <p>Join thousands of satisfied customers who have streamlined their server deployment process with our premium scripts. Get started today and save hours of manual configuration.</p>
-            <a href="#scripts" class="cta-button large">Browse All Scripts</a>
         </div>
     </section>
 
@@ -826,72 +642,93 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>VPS Script Pro</h3>
-                    <p>Providing premium VPS automation scripts since 2018. Our solutions help developers and businesses deploy servers faster and more securely.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
+                    <h3>VPS Script Manager</h3>
+                    <p>A powerful, all-in-one script for deploying and managing proxy services on your VPS. Easy to use, fast, and reliable.</p>
+                    <div style="margin-top: 1rem;">
+                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
+                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.2rem;"><i class="fab fa-telegram"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
+                
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#features">Features</a></li>
-                        <li><a href="#scripts">Scripts</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#protocols">Protocols</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-column">
                     <h3>Support</h3>
                     <ul class="footer-links">
-                        <li><a href="#contact">Documentation</a></li>
-                        <li><a href="#contact">FAQ</a></li>
-                        <li><a href="#contact">Community Forum</a></li>
-                        <li><a href="#contact">Contact Support</a></li>
-                        <li><a href="#contact">Refund Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <ul class="footer-links contact-info">
-                        <li><i class="fas fa-envelope"></i> sales@vpsscriptpro.com</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, San Francisco, CA</li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Troubleshooting</a></li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="copyright">
-                <p>&copy; 2023 VPS Script Pro. All rights reserved.</p>
+                <p>&copy; 2023 VPS Script Manager. All rights reserved. | This tool is for educational purposes only.</p>
             </div>
         </div>
     </footer>
 
     <script>
         // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+            
+            // Change icon
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelector('.nav-links').classList.remove('active');
+        
+        // Copy code button functionality
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const code = document.querySelector('pre code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                this.style.backgroundColor = '#4caf50';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.backgroundColor = '';
+                }, 2000);
             });
         });
-
+        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
+                if (targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
-                if(targetElement) {
+                if (targetElement) {
+                    // Close mobile menu if open
+                    const nav = document.getElementById('mainNav');
+                    const mobileBtnIcon = document.querySelector('#mobileMenuBtn i');
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        mobileBtnIcon.classList.remove('fa-times');
+                        mobileBtnIcon.classList.add('fa-bars');
+                    }
+                    
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
@@ -899,84 +736,6 @@
                 }
             });
         });
-
-        // Purchase button functionality
-        document.querySelectorAll('.purchase-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const planName = this.getAttribute('data-plan');
-                showPurchaseModal(planName);
-            });
-        });
-
-        // Function to show purchase modal
-        function showPurchaseModal(scriptName) {
-            // Create modal HTML
-            const modalHTML = `
-                <div class="modal-overlay">
-                    <div class="modal">
-                        <div class="modal-header">
-                            <h3>Purchase ${scriptName} Script</h3>
-                            <span class="close-modal">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <p>Thank you for your interest in our <strong>${scriptName}</strong> script!</p>
-                            <p>In a real implementation, this would redirect to a secure payment gateway or contact form.</p>
-                            
-                            <div class="purchase-details">
-                                <h4>Next Steps:</h4>
-                                <ol>
-                                    <li>Complete payment via PayPal, Credit Card, or Crypto</li>
-                                    <li>Receive download link and license key via email</li>
-                                    <li>Access detailed documentation and installation guide</li>
-                                    <li>Get support via our dedicated customer portal</li>
-                                </ol>
-                            </div>
-                            
-                            <div class="modal-actions">
-                                <button class="cta-button" id="simulate-purchase">Simulate Purchase</button>
-                                <button class="secondary-button" id="close-modal-btn">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Add modal to page
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
-            // Add event listeners for modal
-            document.querySelector('.close-modal').addEventListener('click', closeModal);
-            document.getElementById('close-modal-btn').addEventListener('click', closeModal);
-            document.getElementById('simulate-purchase').addEventListener('click', function() {
-                alert(`Purchase simulation complete! The ${scriptName} script would now be added to your account.`);
-                closeModal();
-            });
-            
-            // Close modal when clicking outside
-            document.querySelector('.modal-overlay').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-        }
-
-        // Close modal function
-        function closeModal() {
-            const modal = document.querySelector('.modal-overlay');
-            if (modal) {
-                modal.remove();
-            }
-        }
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
-            }
-        });
     </script>
 </body>
-    </html>
+                                                                  </html>
