@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VPSPLUS - The most powerful VPS management script supporting UDP, WebSocket, Xray, OpenVPN, SSH, SSR, L2TP, PPTP, SSTP, WireGuard, and more">
-    <meta name="keywords" content="VPS, UDP, WebSocket, Xray, OpenVPN, SSH, SSR, L2TP, PPTP, SSTP, WSS, WireGuard, SlowDNS, ZIVPN, Script, Server Management">
+    <meta name="description" content="VPSPLUS & MULTIPLUS - The most powerful VPS management scripts supporting SSH, Xray, UDP, WebSocket, OpenVPN, WireGuard, and more">
+    <meta name="keywords" content="VPS, UDP, WebSocket, Xray, OpenVPN, SSH, SSR, L2TP, PPTP, SSTP, WSS, WireGuard, SlowDNS, MULTIPLUS, port 80, port 443">
     <meta name="author" content="VPSPLUS Team">
     <meta name="theme-color" content="#00d4ff">
-    <meta property="og:title" content="VPSPLUS SCRIPT - Ultimate VPS Management Script">
-    <meta property="og:description" content="Complete VPS management script supporting all major protocols">
+    <meta property="og:title" content="VPSPLUS & MULTIPLUS | Ultimate VPS Management Solutions">
+    <meta property="og:description" content="Complete VPS management scripts supporting all major protocols with port 80/443 support">
     <meta property="og:type" content="website">
-    <title>VPSPLUS SCRIPT | Ultimate VPS Management Solution</title>
+    <title>VPSPLUS & MULTIPLUS | Ultimate VPS Management Solutions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -27,6 +27,8 @@
             --accent-glow: rgba(245, 158, 11, 0.3);
             --success: #10b981;
             --danger: #ef4444;
+            --multipass: #ff6b6b;
+            --multipass-glow: rgba(255, 107, 107, 0.4);
             --bg-dark: #0a0a1a;
             --bg-darker: #05050f;
             --bg-card: rgba(15, 22, 35, 0.8);
@@ -42,12 +44,14 @@
             --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
             --gradient-3: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
             --gradient-4: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-multipass: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff4757 100%);
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
             --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
             --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
             --shadow-xl: 0 30px 80px rgba(0,0,0,0.6);
             --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.2);
             --shadow-glow-strong: 0 0 60px rgba(0, 212, 255, 0.4);
+            --shadow-multipass: 0 0 40px rgba(255, 107, 107, 0.2);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
@@ -103,9 +107,6 @@
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, var(--primary), var(--secondary));
             border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
         }
 
         #particles-canvas {
@@ -175,21 +176,6 @@
             filter: drop-shadow(0 0 10px var(--primary-glow));
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-1);
-            transition: width var(--transition-base);
-        }
-
-        .logo:hover::after {
-            width: 100%;
-        }
-
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -241,11 +227,6 @@
             transition: all var(--transition-fast);
         }
 
-        .mobile-menu-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            transform: scale(1.05);
-        }
-
         .hero {
             min-height: 100vh;
             display: flex;
@@ -254,23 +235,6 @@
             position: relative;
             padding: 8rem 5% 5rem;
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
-            animation: rotate 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .hero-content {
@@ -295,11 +259,6 @@
             margin-bottom: 2rem;
             animation: fadeInDown 0.8s ease both;
             backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .hero-badge i {
-            animation: pulse 2s infinite;
         }
 
         .hero h1 {
@@ -308,7 +267,6 @@
             line-height: 1.2;
             margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s ease 0.15s both;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
         .hero h1 .highlight {
@@ -316,8 +274,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            position: relative;
-            display: inline-block;
         }
 
         .hero p {
@@ -328,7 +284,6 @@
             margin-left: auto;
             margin-right: auto;
             animation: fadeInUp 0.8s ease 0.3s both;
-            line-height: 1.8;
         }
 
         .hero-buttons {
@@ -367,8 +322,15 @@
             box-shadow: 0 15px 45px rgba(0, 212, 255, 0.4);
         }
 
-        .btn-primary:active {
-            transform: translateY(0);
+        .btn-multipass {
+            background: var(--gradient-multipass);
+            color: white;
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-multipass:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 45px rgba(255, 107, 107, 0.4);
         }
 
         .btn-secondary {
@@ -382,28 +344,6 @@
             color: var(--primary);
             background: rgba(0, 212, 255, 0.1);
             transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .btn-shine {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-shine::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
-            transform: rotate(25deg) translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .btn-shine:hover::before {
-            transform: rotate(25deg) translateX(100%);
         }
 
         .terminal-window {
@@ -423,7 +363,6 @@
         .terminal-window:hover {
             transform: translateY(-6px);
             box-shadow: var(--shadow-xl), 0 0 80px rgba(0, 212, 255, 0.3);
-            border-color: rgba(0, 212, 255, 0.5);
         }
 
         .terminal-header {
@@ -439,11 +378,6 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            transition: all var(--transition-fast);
-        }
-
-        .terminal-dot:hover {
-            transform: scale(1.2);
         }
 
         .dot-red { background: #ff5f56; }
@@ -456,7 +390,6 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 500;
         }
 
         .terminal-body {
@@ -465,7 +398,6 @@
             font-size: 0.9rem;
             line-height: 2.2;
             text-align: left;
-            direction: ltr;
         }
 
         .terminal-line {
@@ -481,7 +413,6 @@
         .terminal-command { color: var(--primary); font-weight: 500; }
         .terminal-output { color: var(--text-secondary); }
         .terminal-success { color: var(--success); font-weight: 700; }
-        .terminal-highlight { color: var(--accent); }
 
         .stats-bar {
             display: grid;
@@ -502,23 +433,6 @@
             background: var(--bg-card);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .stat-item:hover::before {
-            left: 100%;
         }
 
         .stat-item:hover {
@@ -536,7 +450,6 @@
             background-clip: text;
             line-height: 1;
             margin-bottom: 0.5rem;
-            font-variant-numeric: tabular-nums;
         }
 
         .stat-label {
@@ -594,9 +507,58 @@
             max-width: 550px;
             margin: 0 auto;
             font-size: 1.05rem;
-            line-height: 1.8;
         }
 
+        /* Script Selector Tabs */
+        .script-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .script-tab {
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .script-tab.vpsplus.active {
+            background: var(--gradient-1);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .script-tab.multipass.active {
+            background: var(--gradient-multipass);
+            color: white;
+            border-color: #ff6b6b;
+            box-shadow: var(--shadow-multipass);
+        }
+
+        .script-tab:hover:not(.active) {
+            transform: translateY(-2px);
+            border-color: var(--border-light);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .script-panel {
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .script-panel.active {
+            display: block;
+        }
+
+        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -649,12 +611,6 @@
             justify-content: center;
             font-size: 1.5rem;
             margin-bottom: 1.2rem;
-            position: relative;
-            transition: all var(--transition-base);
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.05) rotate(5deg);
         }
 
         .feature-card h3 {
@@ -687,10 +643,7 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .protocols-section {
-            background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.03), transparent);
-        }
-
+        /* Protocol Cards */
         .protocols-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -703,7 +656,7 @@
             background: rgba(15, 22, 35, 0.6);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 1.2rem;
+            padding: 1rem;
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -745,23 +698,15 @@
             color: var(--success);
         }
 
-        .install-section {
-            background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.03), transparent);
-        }
-
-        .install-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
+        /* Install Section */
         .install-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             border-radius: var(--radius-xl);
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
+            padding: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
             transition: all var(--transition-base);
         }
 
@@ -776,13 +721,6 @@
             border-radius: var(--radius-md);
             padding: 1.5rem;
             margin: 1.5rem 0;
-            position: relative;
-            transition: all var(--transition-base);
-        }
-
-        .code-block:hover {
-            border-color: var(--border-light);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
         }
 
         .code-header {
@@ -836,7 +774,6 @@
             font-size: 0.85rem;
             color: #c9d1d9;
             line-height: 1.8;
-            direction: ltr;
             text-align: left;
             overflow-x: auto;
             white-space: pre-wrap;
@@ -867,7 +804,6 @@
         .step:hover {
             background: rgba(0, 212, 255, 0.05);
             border-color: var(--border-light);
-            transform: translateX(-4px);
         }
 
         .step-number {
@@ -882,7 +818,6 @@
             font-weight: 900;
             font-size: 1.1rem;
             color: white;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         }
 
         .step-content h4 {
@@ -894,7 +829,6 @@
         .step-content p {
             color: var(--text-secondary);
             font-size: 0.85rem;
-            line-height: 1.6;
         }
 
         .step-content code {
@@ -904,17 +838,23 @@
             border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            font-weight: 600;
+        }
+
+        /* Download Cards */
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .download-card {
-            max-width: 550px;
-            margin: 0 auto;
             background: var(--bg-card);
             backdrop-filter: blur(10px);
             border: 2px solid var(--border);
             border-radius: var(--radius-xl);
-            padding: 3rem;
+            padding: 2.5rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -923,8 +863,17 @@
 
         .download-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--shadow-xl), var(--shadow-glow-strong);
-            border-color: var(--border-light);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .download-card.vpsplus:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-glow-strong);
+        }
+
+        .download-card.multipass:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 60px rgba(255, 107, 107, 0.3);
         }
 
         .popular-badge {
@@ -938,17 +887,27 @@
             border-radius: 0 0 16px 16px;
             font-weight: 800;
             font-size: 0.85rem;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .download-card.multipass .popular-badge {
+            background: var(--gradient-multipass);
         }
 
         .download-icon {
             font-size: 3.5rem;
             margin-bottom: 1.2rem;
+        }
+
+        .download-card.vpsplus .download-icon {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+        }
+
+        .download-card.multipass .download-icon {
+            background: var(--gradient-multipass);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .download-card h3 {
@@ -958,16 +917,24 @@
         }
 
         .download-card .price {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin: 1rem 0;
         }
 
-        .download-card .price span {
+        .download-card.vpsplus .price {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .download-card.multipass .price {
+            background: var(--gradient-multipass);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price span {
             font-size: 0.9rem;
             -webkit-text-fill-color: var(--text-secondary);
         }
@@ -986,13 +953,7 @@
             align-items: center;
             gap: 0.7rem;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            transition: all var(--transition-fast);
-        }
-
-        .features-list li:hover {
-            color: var(--text-primary);
-            padding-left: 0.5rem;
+            font-size: 0.85rem;
         }
 
         .features-list li i {
@@ -1017,30 +978,12 @@
             padding: 2rem;
             text-align: center;
             transition: all var(--transition-base);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .community-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), transparent);
-            opacity: 0;
-            transition: opacity var(--transition-base);
-        }
-
-        .community-card:hover::before {
-            opacity: 1;
         }
 
         .community-card:hover {
             transform: translateY(-6px);
             border-color: var(--border-light);
-            box-shadow: var(--shadow-xl), var(--shadow-glow);
+            box-shadow: var(--shadow-xl);
         }
 
         .community-icon {
@@ -1052,11 +995,6 @@
             justify-content: center;
             font-size: 1.8rem;
             margin: 0 auto 1.5rem;
-            transition: all var(--transition-base);
-        }
-
-        .community-card:hover .community-icon {
-            transform: scale(1.05);
         }
 
         .community-card h4 {
@@ -1069,7 +1007,6 @@
             color: var(--text-secondary);
             font-size: 0.85rem;
             margin-bottom: 1.5rem;
-            line-height: 1.6;
         }
 
         .community-link {
@@ -1087,7 +1024,6 @@
         .community-link:hover {
             gap: 0.8rem;
             background: rgba(0, 212, 255, 0.1);
-            transform: translateX(-4px);
         }
 
         .footer {
@@ -1139,14 +1075,11 @@
             text-decoration: none;
             transition: all var(--transition-fast);
             font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
         }
 
         .footer-links a:hover {
             color: var(--primary);
-            transform: translateX(-4px);
+            padding-left: 4px;
         }
 
         .footer-bottom {
@@ -1189,9 +1122,7 @@
         .social-links a:hover {
             background: var(--gradient-1);
             color: white;
-            border-color: var(--primary);
             transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
         }
 
         @keyframes fadeInUp {
@@ -1206,11 +1137,6 @@
 
         @keyframes typeLine {
             to { opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.05); }
         }
 
         @keyframes spin {
@@ -1288,9 +1214,22 @@
             align-items: center;
             gap: 0.5rem;
         }
+
         .toast.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
+        }
+
+        .port-highlight {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--primary);
+            display: inline-block;
+            margin-top: 0.5rem;
         }
 
         @media (max-width: 992px) {
@@ -1300,6 +1239,9 @@
             .stats-bar {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
+            }
+            .downloads-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1347,10 +1289,6 @@
                 text-align: center;
             }
 
-            .footer-brand p {
-                margin: 0 auto;
-            }
-
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -1372,10 +1310,6 @@
                 align-items: center;
             }
 
-            .download-card {
-                padding: 1.8rem 1.2rem;
-            }
-
             .features-grid {
                 grid-template-columns: 1fr;
             }
@@ -1383,13 +1317,24 @@
             .protocols-grid {
                 grid-template-columns: 1fr;
             }
+
+            .script-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .script-tab {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="loader" id="loader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">VPSPLUS</div>
+        <div class="loader-text">VPSPLUS & MULTIPLUS</div>
     </div>
 
     <div class="cursor-glow" id="cursorGlow"></div>
@@ -1420,20 +1365,20 @@
                 Version 4.0 - The Ultimate Release
             </div>
             <h1>
-                Revolution in<br>
-                <span class="highlight">VPS Management</span>
+                Two Powerful Scripts<br>
+                <span class="highlight">For Complete VPS Control</span>
             </h1>
             <p>
-                The most comprehensive VPS management script supporting 15+ protocols in one powerful, easy-to-use interface
+                Choose between VPSPLUS for all protocols or MULTIPLUS for optimized SSH & Xray on ports 80/443
             </p>
             <div class="hero-buttons">
                 <a href="#install" class="btn btn-primary btn-shine">
                     <i class="fas fa-rocket"></i>
-                    Install Now - Free
+                    Install VPSPLUS
                 </a>
-                <a href="#features" class="btn btn-secondary">
-                    <i class="fas fa-play-circle"></i>
-                    See Demo
+                <a href="#install" class="btn btn-multipass" onclick="switchToMultipass()">
+                    <i class="fas fa-layer-group"></i>
+                    Try MULTIPLUS
                 </a>
             </div>
 
@@ -1447,10 +1392,10 @@
                 <div class="terminal-body">
                     <div class="terminal-line" style="animation-delay: 1.2s;">
                         <span class="terminal-prompt">root@vpsplus:~#</span>
-                        <span class="terminal-command"> curl -sSL https://vpsplus.dev/install | bash</span>
+                        <span class="terminal-command"> curl -sSL https://vpsplus.dev/install.sh | bash</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 2.2s;">
-                        <span class="terminal-highlight">[★]</span>
+                        <span class="terminal-success">[✓]</span>
                         <span class="terminal-output"> VPSPLUS Ultimate Installer v4.0</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 2.7s;">
@@ -1459,21 +1404,17 @@
                     </div>
                     <div class="terminal-line" style="animation-delay: 3.2s;">
                         <span class="terminal-success">[✓]</span>
-                        <span class="terminal-output"> RAM: 2GB | CPU: 2 vCores</span>
+                        <span class="terminal-output"> Installing: 15+ Protocols</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 3.7s;">
                         <span class="terminal-success">[✓]</span>
-                        <span class="terminal-output"> Installing: 15+ Protocols (SSH, Xray, OpenVPN, WireGuard...)</span>
-                    </div>
-                    <div class="terminal-line" style="animation-delay: 4.2s;">
-                        <span class="terminal-success">[✓]</span>
                         <span class="terminal-output"> Installation completed in 28 seconds</span>
                     </div>
-                    <div class="terminal-line" style="animation-delay: 4.7s;">
+                    <div class="terminal-line" style="animation-delay: 4.2s;">
                         <span class="terminal-prompt">root@vpsplus:~#</span>
                         <span class="terminal-command"> vpsplus menu</span>
                     </div>
-                    <div class="terminal-line" style="animation-delay: 5.2s;">
+                    <div class="terminal-line" style="animation-delay: 4.7s;">
                         <span class="terminal-success">⚡ Welcome to VPSPLUS Control Panel</span>
                     </div>
                 </div>
@@ -1483,7 +1424,7 @@
 
     <div class="stats-bar">
         <div class="stat-item reveal">
-            <div class="stat-number" data-target="35000">0</div>
+            <div class="stat-number" data-target="50000">0</div>
             <div class="stat-label">Successful Installs</div>
         </div>
         <div class="stat-item reveal">
@@ -1502,96 +1443,220 @@
 
     <section class="section" id="features">
         <div class="section-header reveal">
-            <span class="section-tag">Unmatched Features</span>
-            <h2 class="section-title">Everything You Need in <span class="highlight">One Script</span></h2>
+            <span class="section-tag">Choose Your Script</span>
+            <h2 class="section-title">Two Solutions, <span class="highlight">One Goal</span></h2>
             <p class="section-desc">
-                Complete toolkit combining the most powerful protocols and tools in a single integrated environment
+                Select the perfect script for your needs
             </p>
         </div>
 
-        <div class="features-grid">
-            <article class="feature-card reveal">
-                <div class="feature-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
-                    <i class="fas fa-broadcast-tower"></i>
-                </div>
-                <h3>UDP Custom</h3>
-                <p>Complete UDP protocol support with custom settings for optimal performance and connection speed, bypassing restrictions</p>
-                <div class="feature-tags">
-                    <span class="feature-tag">UDP</span>
-                    <span class="feature-tag">Custom</span>
-                    <span class="feature-tag">High Performance</span>
-                </div>
-            </article>
+        <!-- Script Selector Tabs -->
+        <div class="script-selector">
+            <div class="script-tab vpsplus active" onclick="selectScript('vpsplus')">
+                <i class="fas fa-server"></i> VPSPLUS - All Protocols
+            </div>
+            <div class="script-tab multipass" onclick="selectScript('multipass')">
+                <i class="fas fa-exchange-alt"></i> MULTIPLUS - Port 80/443
+            </div>
+        </div>
 
-            <article class="feature-card reveal">
-                <div class="feature-icon" style="background: rgba(124, 58, 237, 0.1); color: var(--secondary);">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <h3>WebSocket + WSS</h3>
-                <p>Secure WebSocket connections with full TLS 1.3 support, CDN compatibility, and traffic masking capabilities</p>
-                <div class="feature-tags">
-                    <span class="feature-tag">WSS</span>
-                    <span class="feature-tag">TLS 1.3</span>
-                    <span class="feature-tag">CDN Ready</span>
-                </div>
-            </article>
+        <!-- VPSPLUS Panel -->
+        <div class="script-panel active" id="vpsplusPanel">
+            <div class="features-grid">
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3>UDP Custom</h3>
+                    <p>Complete UDP protocol support with custom settings for optimal performance</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">UDP</span>
+                        <span class="feature-tag">Custom</span>
+                    </div>
+                </article>
 
-            <article class="feature-card reveal">
-                <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Xray Core + XTLS</h3>
-                <p>Latest Xray core with XTLS Vision support, VLESS, VMess, Trojan, Shadowsocks, and advanced routing</p>
-                <div class="feature-tags">
-                    <span class="feature-tag">VLESS</span>
-                    <span class="feature-tag">XTLS</span>
-                    <span class="feature-tag">Trojan</span>
-                </div>
-            </article>
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(124, 58, 237, 0.1); color: var(--secondary);">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>WebSocket + WSS</h3>
+                    <p>Secure WebSocket connections with full TLS 1.3 and CDN compatibility</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">WSS</span>
+                        <span class="feature-tag">TLS 1.3</span>
+                    </div>
+                </article>
 
-            <article class="feature-card reveal">
-                <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                    <i class="fas fa-globe"></i>
-                </div>
-                <h3>OpenVPN + L2TP</h3>
-                <p>Ready-to-use OpenVPN setup with custom SSL certificates, plus L2TP/IPsec support for legacy devices</p>
-                <div class="feature-tags">
-                    <span class="feature-tag">OpenVPN</span>
-                    <span class="feature-tag">L2TP/IPsec</span>
-                    <span class="feature-tag">SSL/TLS</span>
-                </div>
-            </article>
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Xray Core + XTLS</h3>
+                    <p>Latest Xray core with VLESS, VMess, Trojan, and Shadowsocks support</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">VLESS</span>
+                        <span class="feature-tag">XTLS</span>
+                    </div>
+                </article>
 
-            <article class="feature-card reveal">
-                <div class="feature-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
-                    <i class="fas fa-terminal"></i>
-                </div>
-                <h3>SSH + Dropbear</h3>
-                <p>Complete SSH account management with speed limiting, duration settings, concurrent connections, and Stunnel support</p>
-                <div class="feature-tags">
-                    <span class="feature-tag">SSH</span>
-                    <span class="feature-tag">Dropbear</span>
-                    <span class="feature-tag">Stunnel</span>
-                </div>
-            </article>
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>WireGuard + OpenVPN</h3>
+                    <p>Modern VPN protocols with high performance and strong encryption</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">WireGuard</span>
+                        <span class="feature-tag">OpenVPN</span>
+                    </div>
+                </article>
 
-            <article class="feature-card reveal">
-                <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
-                    <i class="fas fa-user-secret"></i>
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3>SSH + Dropbear</h3>
+                    <p>Complete SSH account management with speed limiting and concurrent connections</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">SSH</span>
+                        <span class="feature-tag">Dropbear</span>
+                    </div>
+                </article>
+
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>ShadowsocksR + L2TP</h3>
+                    <p>SSR with obfuscation plus L2TP/IPsec for legacy device support</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">SSR</span>
+                        <span class="feature-tag">L2TP</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- MULTIPLUS Panel -->
+        <div class="script-panel" id="multipassPanel">
+            <div class="features-grid">
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>SSH on Port 80 & 443</h3>
+                    <p>SSH tunneling optimized for ports 80 and 443 to bypass network restrictions and firewalls</p>
+                    <div class="port-highlight">
+                        <i class="fas fa-network-wired"></i> Port 80 (HTTP) | Port 443 (HTTPS)
+                    </div>
+                    <div class="feature-tags">
+                        <span class="feature-tag">SSH</span>
+                        <span class="feature-tag">Port 80</span>
+                        <span class="feature-tag">Port 443</span>
+                        <span class="feature-tag">Firewall Bypass</span>
+                    </div>
+                </article>
+
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3>Xray on Port 80 & 443</h3>
+                    <p>Xray core (VLESS/VMess/Trojan) optimized for ports 80 and 443 - perfect for restricted networks</p>
+                    <div class="port-highlight">
+                        <i class="fas fa-network-wired"></i> Port 80 (HTTP) | Port 443 (HTTPS) + TLS
+                    </div>
+                    <div class="feature-tags">
+                        <span class="feature-tag">XRAY</span>
+                        <span class="feature-tag">VLESS</span>
+                        <span class="feature-tag">Port 80/443</span>
+                        <span class="feature-tag">TLS</span>
+                    </div>
+                </article>
+
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>CDN & Cloudflare Ready</h3>
+                    <p>Fully compatible with Cloudflare CDN and other reverse proxies on ports 80/443</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">CDN</span>
+                        <span class="feature-tag">Cloudflare</span>
+                        <span class="feature-tag">Reverse Proxy</span>
+                    </div>
+                </article>
+
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Traffic Obfuscation</h3>
+                    <p>Smart traffic masking making your SSH and Xray traffic look like regular HTTPS traffic</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">Obfuscation</span>
+                        <span class="feature-tag">HTTPS Mimic</span>
+                        <span class="feature-tag">Stealth</span>
+                    </div>
+                </article>
+
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>High Performance</h3>
+                    <p>Optimized configurations for maximum speed and stability on standard web ports</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">Low Latency</span>
+                        <span class="feature-tag">High Speed</span>
+                        <span class="feature-tag">Stable</span>
+                    </div>
+                </article>
+
+                <article class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Easy Management</h3>
+                    <p>Simple command-line interface to manage users, monitor traffic, and configure settings</p>
+                    <div class="feature-tags">
+                        <span class="feature-tag">User Management</span>
+                        <span class="feature-tag">Traffic Monitor</span>
+                        <span class="feature-tag">Auto Config</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- MULTIPLUS Advantages Banner -->
+            <div class="install-card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(0,0,0,0.2)); border-color: rgba(255,107,107,0.3);">
+                <div style="text-align: center;">
+                    <h3 style="color: #ff6b6b; margin-bottom: 1rem;">
+                        <i class="fas fa-star"></i> Why MULTIPLUS?
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                        <div>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Bypass Firewalls</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Work on Restricted Networks</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Perfect for CDN</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Undetectable Traffic</span>
+                        </div>
+                    </div>
                 </div>
-                <h3>ShadowsocksR + SSR</h3>
-                <p>ShadowsocksR support with multiple protocols, obfuscation methods, and AES-256 encryption for high anonymity</p>
-                <div class="feature-tags">
-                    <span class="feature-tag">SSR</span>
-                    <span class="feature-tag">Obfs</span>
-                    <span class="feature-tag">AES-256</span>
-                </div>
-            </article>
+            </div>
         </div>
     </section>
 
-    <!-- Protocols Section - All 15+ protocols -->
-    <section class="section protocols-section" id="protocols">
+    <section class="section" id="protocols">
         <div class="section-header reveal">
             <span class="section-tag">Complete Protocol Support</span>
             <h2 class="section-title">All Protocols <span class="highlight">In One Place</span></h2>
@@ -1608,6 +1673,17 @@
                 <div class="protocol-info">
                     <h4>SSH / Dropbear</h4>
                     <p>Secure Shell with multi-port support</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>MULTIPLUS SSH</h4>
+                    <p>SSH on ports 80 & 443</p>
                 </div>
                 <div class="protocol-status">Active</div>
             </div>
@@ -1663,6 +1739,17 @@
                 <div class="protocol-info">
                     <h4>WSS / WebSocket Secure</h4>
                     <p>Encrypted WebSocket with TLS</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>MULTIPLUS XRAY</h4>
+                    <p>Xray on ports 80 & 443 with TLS</p>
                 </div>
                 <div class="protocol-status">Active</div>
             </div>
@@ -1744,94 +1831,125 @@
             </p>
         </div>
 
-        <div class="install-container reveal">
-            <div class="install-card">
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="code-lang">
-                            <i class="fas fa-terminal"></i>
-                            Bash Script
-                        </div>
-                        <button class="copy-btn" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i>
-                            Copy Command
-                        </button>
+        <!-- VPSPLUS Install -->
+        <div class="install-card" id="vpsplusInstall">
+            <h3 style="text-align: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-server" style="color: var(--primary);"></i> VPSPLUS Installation
+            </h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-lang">
+                        <i class="fas fa-terminal"></i>
+                        Bash Script
                     </div>
-                    <div class="code-content"><span class="comment"># Quick Installation (Recommended)</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'vpsplus')">
+                        <i class="fas fa-copy"></i>
+                        Copy Command
+                    </button>
+                </div>
+                <div class="code-content" id="vpsplusCode"><span class="comment"># VPSPLUS Installation (All Protocols)</span>
 bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span>
 
 <span class="comment"># Or using wget</span>
 bash <span class="string">&lt;(wget -qO- https://vpsplus.dev/install.sh)</span>
 
 <span class="comment"># Install specific protocols only</span>
-bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span> --protocols=xray,wireguard,ssh
+bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span> --protocols=xray,wireguard,ssh</div>
+            </div>
+        </div>
 
-<span class="comment"># Direct GitHub installation</span>
-git clone https://github.com/vpsplus/vpsplus-script.git &amp;&amp; cd vpsplus-script &amp;&amp; bash install.sh</div>
+        <!-- MULTIPLUS Install -->
+        <div class="install-card" id="multipassInstall" style="display: none; border-color: rgba(255,107,107,0.3);">
+            <h3 style="text-align: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-exchange-alt" style="color: #ff6b6b;"></i> MULTIPLUS Installation
+            </h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-lang">
+                        <i class="fas fa-terminal"></i>
+                        Bash Script
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this, 'multipass')">
+                        <i class="fas fa-copy"></i>
+                        Copy Command
+                    </button>
                 </div>
+                <div class="code-content" id="multipassCode"><span class="comment"># MULTIPLUS Installation (SSH + Xray on Ports 80/443)</span>
+bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span>
 
-                <div class="install-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Update Your System</h4>
-                            <p>Make sure your <code>Ubuntu 20.04+</code>, <code>Debian 11+</code>, or <code>CentOS 8+</code> system is up to date</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Run Installation Command</h4>
-                            <p>Copy the command above, paste it in your terminal (SSH), and press Enter</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Access Control Panel</h4>
-                            <p>After completion, type <code>vpsplus</code> or <code>menu</code> to access the interactive dashboard</p>
-                        </div>
+<span class="comment"># Or using wget</span>
+bash <span class="string">&lt;(wget -qO- https://multiplus.dev/install.sh)</span>
+
+<span class="comment"># Install with custom domain for TLS</span>
+bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --domain=your-domain.com
+
+<span class="comment"># Quick setup with automatic configuration</span>
+bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --auto --email=admin@example.com</div>
+            </div>
+
+            <div class="install-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Update Your System</h4>
+                        <p>Make sure your <code>Ubuntu 20.04+</code> or <code>Debian 11+</code> system is up to date</p>
                     </div>
                 </div>
-
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="code-lang">
-                            <i class="fas fa-cog"></i>
-                            Management Commands
-                        </div>
-                        <button class="copy-btn" onclick="copyCode(this)">
-                            <i class="fas fa-copy"></i>
-                            Copy Commands
-                        </button>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Run Installation Command</h4>
+                        <p>Copy the command above, paste it in your terminal (SSH), and press Enter</p>
                     </div>
-                    <div class="code-content"><span class="comment"># Open main control panel</span>
-vpsplus
-
-<span class="comment"># Show all services status</span>
-vpsplus --status
-
-<span class="comment"># Add new SSH user</span>
-vpsplus --add-user
-
-<span class="comment"># Setup Xray (VLESS/VMess/Trojan)</span>
-vpsplus --xray
-
-<span class="comment"># Setup WireGuard VPN</span>
-vpsplus --wireguard
-
-<span class="comment"># Setup L2TP/IPsec</span>
-vpsplus --l2tp
-
-<span class="comment"># Setup OpenVPN</span>
-vpsplus --openvpn
-
-<span class="comment"># Monitor system resources</span>
-vpsplus --monitor
-
-<span class="comment"># Update script to latest version</span>
-vpsplus --update</div>
                 </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Configure SSH & Xray</h4>
+                        <p>After completion, use <code>multipass</code> command to configure SSH on port 80/443 and Xray on port 443 with TLS</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-lang">
+                        <i class="fas fa-cog"></i>
+                        MULTIPLUS Commands
+                    </div>
+                    <button class="copy-btn" onclick="copyCode(this, 'multipass-cmds')">
+                        <i class="fas fa-copy"></i>
+                        Copy Commands
+                    </button>
+                </div>
+                <div class="code-content" id="multipassCmds"><span class="comment"># Open MULTIPLUS control panel</span>
+multipass
+
+<span class="comment"># Configure SSH on port 80</span>
+multipass --ssh-port-80
+
+<span class="comment"># Configure SSH on port 443</span>
+multipass --ssh-port-443
+
+<span class="comment"># Setup Xray with TLS on port 443</span>
+multipass --xray-tls
+
+<span class="comment"># Add new SSH user with port 80/443 access</span>
+multipass --add-user
+
+<span class="comment"># Show service status</span>
+multipass --status
+
+<span class="comment"># Monitor traffic on ports 80/443</span>
+multipass --monitor
+
+<span class="comment"># Update MULTIPLUS</span>
+multipass --update</div>
+            </div>
+
+            <div style="background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: var(--radius-md); padding: 1rem; margin-top: 1.5rem;">
+                <i class="fas fa-info-circle" style="color: #ff6b6b;"></i>
+                <strong>Note:</strong> MULTIPLUS optimizes SSH and Xray to run on ports 80 and 443, making your traffic look like regular web traffic and bypassing most firewalls and restrictions.
             </div>
         </div>
     </section>
@@ -1839,37 +1957,66 @@ vpsplus --update</div>
     <section class="section download-section" id="download">
         <div class="section-header reveal">
             <span class="section-tag">100% Free</span>
-            <h2 class="section-title">Choose <span class="highlight">Your Freedom</span></h2>
+            <h2 class="section-title">Choose <span class="highlight">Your Script</span></h2>
             <p class="section-desc">
-                VPSPLUS is completely free forever with continuous updates and support
+                Both scripts are completely free forever with continuous updates
             </p>
         </div>
 
-        <div class="download-card popular reveal">
-            <div class="popular-badge">✨ Most Popular ✨</div>
-            <div class="download-icon">
-                <i class="fas fa-gem"></i>
+        <div class="downloads-grid">
+            <!-- VPSPLUS Card -->
+            <div class="download-card vpsplus reveal">
+                <div class="popular-badge">✨ Most Popular ✨</div>
+                <div class="download-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3>VPSPLUS ULTIMATE</h3>
+                <div class="price">
+                    FREE <span>Forever</span>
+                </div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> 15+ Protocols Complete Support</li>
+                    <li><i class="fas fa-check-circle"></i> SSH, SSR, L2TP, PPTP, SSTP</li>
+                    <li><i class="fas fa-check-circle"></i> WSS, XRAY, OpenVPN, WireGuard</li>
+                    <li><i class="fas fa-check-circle"></i> UDP Custom, ZIVPN UDP, SlowDNS</li>
+                    <li><i class="fas fa-check-circle"></i> Full-Color Interactive Panel</li>
+                    <li><i class="fas fa-check-circle"></i> Unlimited User Management</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time Resource Monitoring</li>
+                    <li><i class="fas fa-check-circle"></i> Automatic Updates</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 Technical Support</li>
+                </ul>
+                <button class="btn btn-primary" onclick="selectScriptAndScroll('vpsplus')" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-download"></i>
+                    Install VPSPLUS
+                </button>
             </div>
-            <h3>VPSPLUS ULTIMATE</h3>
-            <div class="price">
-                FREE <span>Forever</span>
+
+            <!-- MULTIPLUS Card -->
+            <div class="download-card multipass reveal">
+                <div class="popular-badge" style="background: var(--gradient-multipass);">🔥 Specialized 🔥</div>
+                <div class="download-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>MULTIPLUS</h3>
+                <div class="price">
+                    FREE <span>Forever</span>
+                </div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> <strong>SSH on Port 80 & 443</strong></li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Xray on Port 443 with TLS</strong></li>
+                    <li><i class="fas fa-check-circle"></i> Firewall Bypass Technology</li>
+                    <li><i class="fas fa-check-circle"></i> CDN & Cloudflare Ready</li>
+                    <li><i class="fas fa-check-circle"></i> Traffic Obfuscation</li>
+                    <li><i class="fas fa-check-circle"></i> HTTPS Traffic Mimicking</li>
+                    <li><i class="fas fa-check-circle"></i> Works on Restricted Networks</li>
+                    <li><i class="fas fa-check-circle"></i> Low Latency Configuration</li>
+                    <li><i class="fas fa-check-circle"></i> Simple Management Commands</li>
+                </ul>
+                <button class="btn btn-multipass" onclick="selectScriptAndScroll('multipass')" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-download"></i>
+                    Install MULTIPLUS
+                </button>
             </div>
-            <ul class="features-list">
-                <li><i class="fas fa-check-circle"></i> 15+ Protocols: SSH, SSR, L2TP, PPTP, SSTP, WSS, XRAY, OpenVPN, WireGuard, UDP Custom, ZIVPN UDP, SlowDNS</li>
-                <li><i class="fas fa-check-circle"></i> Full-Color Interactive Control Panel</li>
-                <li><i class="fas fa-check-circle"></i> Unlimited User Management</li>
-                <li><i class="fas fa-check-circle"></i> Real-time Resource Monitoring</li>
-                <li><i class="fas fa-check-circle"></i> Automatic Updates</li>
-                <li><i class="fas fa-check-circle"></i> Supports Ubuntu/Debian/CentOS/Almalinux</li>
-                <li><i class="fas fa-check-circle"></i> 24/7 Technical Support via Telegram</li>
-                <li><i class="fas fa-check-circle"></i> Backup & Restore System</li>
-                <li><i class="fas fa-check-circle"></i> Bandwidth Limiting per User</li>
-                <li><i class="fas fa-check-circle"></i> Expiry Date Management</li>
-            </ul>
-            <a href="#install" class="btn btn-primary btn-shine" style="width: 100%; justify-content: center;">
-                <i class="fas fa-download"></i>
-                Install Now
-            </a>
         </div>
     </section>
 
@@ -1929,7 +2076,7 @@ vpsplus --update</div>
                     VPSPLUS
                 </a>
                 <p>
-                    VPSPLUS is the most popular script in the world for VPS server management, combining power and ease of use with the latest technologies.
+                    VPSPLUS is the most popular script for VPS server management. MULTIPLUS specializes in SSH and Xray on ports 80/443 for restricted networks.
                 </p>
             </div>
             <div class="footer-links">
@@ -1943,15 +2090,10 @@ vpsplus --update</div>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Protocols</h4>
+                <h4>Scripts</h4>
                 <ul>
-                    <li><a href="#protocols">SSH / Dropbear</a></li>
-                    <li><a href="#protocols">SSR / ShadowsocksR</a></li>
-                    <li><a href="#protocols">L2TP / PPTP / SSTP</a></li>
-                    <li><a href="#protocols">XRAY Core</a></li>
-                    <li><a href="#protocols">OpenVPN / WireGuard</a></li>
-                    <li><a href="#protocols">UDP Custom / ZIVPN</a></li>
-                    <li><a href="#protocols">SlowDNS / WSS</a></li>
+                    <li><a href="#" onclick="selectScript('vpsplus')">VPSPLUS - All Protocols</a></li>
+                    <li><a href="#" onclick="selectScript('multipass')">MULTIPLUS - Port 80/443</a></li>
                 </ul>
             </div>
             <div class="footer-links">
@@ -1965,7 +2107,7 @@ vpsplus --update</div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 VPSPLUS - All Rights Reserved</p>
+            <p>© 2026 VPSPLUS & MULTIPLUS - All Rights Reserved</p>
             <div class="social-links">
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-telegram"></i></a>
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-github"></i></a>
@@ -2109,6 +2251,42 @@ vpsplus --update</div>
             });
         });
 
+        // Script Selection Function
+        function selectScript(script) {
+            // Update tabs
+            document.querySelectorAll('.script-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            if (script === 'vpsplus') {
+                document.querySelector('.script-tab.vpsplus').classList.add('active');
+            } else {
+                document.querySelector('.script-tab.multipass').classList.add('active');
+            }
+            
+            // Update panels
+            document.getElementById('vpsplusPanel').classList.remove('active');
+            document.getElementById('multipassPanel').classList.remove('active');
+            if (script === 'vpsplus') {
+                document.getElementById('vpsplusPanel').classList.add('active');
+            } else {
+                document.getElementById('multipassPanel').classList.add('active');
+            }
+            
+            // Update install sections
+            document.getElementById('vpsplusInstall').style.display = script === 'vpsplus' ? 'block' : 'none';
+            document.getElementById('multipassInstall').style.display = script === 'multipass' ? 'block' : 'none';
+        }
+
+        function selectScriptAndScroll(script) {
+            selectScript(script);
+            document.getElementById('install').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function switchToMultipass() {
+            selectScript('multipass');
+            document.getElementById('install').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         // Reveal animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
@@ -2161,9 +2339,19 @@ vpsplus --update</div>
         }
 
         // Copy code function
-        function copyCode(btn) {
-            const codeBlock = btn.closest('.code-block').querySelector('.code-content');
-            const text = codeBlock.innerText;
+        function copyCode(btn, type) {
+            let text = '';
+            if (type === 'vpsplus') {
+                text = document.getElementById('vpsplusCode').innerText;
+            } else if (type === 'multipass') {
+                text = document.getElementById('multipassCode').innerText;
+            } else if (type === 'multipass-cmds') {
+                text = document.getElementById('multipassCmds').innerText;
+            } else {
+                const codeBlock = btn.closest('.code-block').querySelector('.code-content');
+                text = codeBlock.innerText;
+            }
+            
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = btn.innerHTML;
                 btn.classList.add('copied');
@@ -2208,6 +2396,14 @@ vpsplus --update</div>
                     link.classList.add('active');
                 }
             });
+        });
+
+        // Terminal animation
+        const terminalLines = document.querySelectorAll('.terminal-line');
+        terminalLines.forEach((line, index) => {
+            setTimeout(() => {
+                line.style.opacity = '1';
+            }, index * 400 + 1200);
         });
     </script>
 </body>
