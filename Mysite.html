@@ -1,741 +1,2006 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPS Script Manager - SSHWS, VLESS, VMESS, Trojan, SlowDNS, Shadowsocks</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="VPSPLUS - أقوى سكريبت إدارة VPS متكامل يدعم UDP، WebSocket، Xray، OpenVPN، SSH، و SSR">
+    <meta name="keywords" content="VPS, UDP, WebSocket, Xray, OpenVPN, SSH, SSR, سكريبت, إدارة سيرفر">
+    <meta name="author" content="VPSPLUS Team">
+    <meta name="theme-color" content="#00d4ff">
+    <meta property="og:title" content="VPSPLUS SCRIPT - أقوى سكريبت إدارة VPS">
+    <meta property="og:description" content="سكريبت متكامل لإدارة خوادم VPS مع دعم جميع البروتوكولات">
+    <meta property="og:type" content="website">
+    <title>VPSPLUS SCRIPT | أقوى سكريبت إدارة VPS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #0099cc;
+            --primary-light: #5ee0ff;
+            --primary-glow: rgba(0, 212, 255, 0.5);
+            --secondary: #7c3aed;
+            --secondary-glow: rgba(124, 58, 237, 0.4);
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.3);
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-dark: #0a0a1a;
+            --bg-darker: #05050f;
+            --bg-card: rgba(15, 22, 35, 0.8);
+            --bg-card-solid: #0f1623;
+            --bg-card-hover: rgba(22, 31, 50, 0.95);
+            --bg-elevated: #1a2332;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border: rgba(51, 65, 85, 0.5);
+            --border-light: rgba(0, 212, 255, 0.2);
+            --gradient-1: linear-gradient(135deg, #00d4ff 0%, #0066ff 50%, #7c3aed 100%);
+            --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --gradient-3: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
+            --gradient-4: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+            --shadow-xl: 0 30px 80px rgba(0,0,0,0.6);
+            --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.2);
+            --shadow-glow-strong: 0 0 60px rgba(0, 212, 255, 0.4);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary-color: #1a237e;
-            --secondary-color: #3949ab;
-            --accent-color: #00bcd4;
-            --dark-color: #0d1430;
-            --light-color: #f5f7ff;
-            --success-color: #4caf50;
-            --warning-color: #ff9800;
-            --danger-color: #f44336;
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
-        
+
         body {
-            background-color: #f0f2f5;
-            color: #333;
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
-            color: white;
-            padding: 1.5rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: sticky;
+
+        body::before {
+            content: '';
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
-        
-        .header-content {
+
+        ::selection {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(124, 58, 237, 0.3));
+            color: white;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 15, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid transparent;
+            transition: all var(--transition-base);
         }
-        
+
+        .navbar.scrolled {
+            padding: 0.6rem 5%;
+            background: rgba(5, 5, 15, 0.95);
+            border-bottom-color: var(--border-light);
+            box-shadow: var(--shadow-md);
+        }
+
         .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        
-        .logo i {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-        }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        
-        .logo span {
-            color: var(--accent-color);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-        }
-        
-        nav a {
-            color: white;
+            gap: 0.6rem;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-            padding: 5px 0;
             position: relative;
         }
-        
-        nav a:hover {
-            color: var(--accent-color);
+
+        .logo i {
+            font-size: 2rem;
+            -webkit-text-fill-color: transparent;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
         }
-        
-        nav a::after {
+
+        .logo::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.3s;
+            background: var(--gradient-1);
+            transition: width var(--transition-base);
         }
-        
-        nav a:hover::after {
+
+        .logo:hover::after {
             width: 100%;
         }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
         }
-        
-        /* Hero Section */
-        .hero {
-            padding: 5rem 0;
-            background: linear-gradient(rgba(13, 20, 48, 0.9), rgba(13, 20, 48, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-        }
-        
-        .hero h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: var(--accent-color);
-            color: white;
-            padding: 0.9rem 2rem;
-            border-radius: 50px;
+
+        .nav-links a {
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            border: 2px solid var(--accent-color);
-            margin-top: 1rem;
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+            position: relative;
+            padding: 0.4rem 0;
         }
-        
-        .cta-button:hover {
-            background: transparent;
-            color: var(--accent-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width var(--transition-base);
+            border-radius: 2px;
         }
-        
-        /* Features Section */
-        .features {
-            padding: 5rem 0;
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            width: 100%;
         }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
         }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
+
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--border-light);
+            color: var(--primary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0.6rem;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
         }
-        
-        .section-title p {
-            color: #666;
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
+
+        .mobile-menu-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: scale(1.05);
         }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            height: 100%;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .feature-icon {
-            background: var(--primary-color);
-            color: white;
-            height: 80px;
+
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            position: relative;
+            padding: 8rem 5% 5rem;
+            overflow: hidden;
         }
-        
-        .feature-content {
-            padding: 1.5rem;
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
         }
-        
-        .feature-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-            color: var(--dark-color);
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        
-        .feature-content p {
-            color: #666;
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease both;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .hero-badge i {
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.15s both;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.3s both;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.45s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-md);
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 45px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+            transform: rotate(25deg) translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-shine:hover::before {
+            transform: rotate(25deg) translateX(100%);
+        }
+
+        .terminal-window {
+            margin-top: 4rem;
+            background: rgba(15, 22, 35, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+            transition: all var(--transition-base);
+        }
+
+        .terminal-window:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl), 0 0 80px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .terminal-header {
+            background: rgba(26, 35, 50, 0.9);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: all var(--transition-fast);
+        }
+
+        .terminal-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            margin-right: auto;
+            margin-left: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .terminal-body {
+            padding: 1.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 2.2;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .terminal-line {
+            opacity: 0;
+            animation: typeLine 0.5s ease forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .terminal-prompt { color: var(--success); font-weight: 700; }
+        .terminal-command { color: var(--primary); font-weight: 500; }
+        .terminal-output { color: var(--text-secondary); }
+        .terminal-success { color: var(--success); font-weight: 700; }
+        .terminal-highlight { color: var(--accent); }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 4rem 5%;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-base);
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-item:hover::before {
+            left: 100%;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .section {
+            padding: 6rem 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1));
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 800;
             margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
+
+        .section-title {
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .section-title .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-base);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            position: relative;
+            transition: all var(--transition-base);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1));
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
         .feature-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
         }
-        
-        .tag {
-            background: #e8eaf6;
-            color: var(--primary-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
+
+        .feature-tag {
+            padding: 0.3rem 1rem;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--primary-light);
             font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all var(--transition-fast);
         }
-        
-        /* Installation Section */
-        .installation {
-            background: var(--light-color);
-            padding: 5rem 0;
+
+        .feature-card:hover .feature-tag {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: rgba(0, 212, 255, 0.3);
         }
-        
-        .code-container {
-            background: var(--dark-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow-x: auto;
+
+        .install-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.03), transparent);
         }
-        
+
+        .install-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .install-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .install-card:hover {
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-glow-strong);
+        }
+
+        .install-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.05), transparent);
+            pointer-events: none;
+        }
+
+        .code-block {
+            background: rgba(10, 15, 26, 0.9);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+            position: relative;
+            transition: all var(--transition-base);
+        }
+
+        .code-block:hover {
+            border-color: var(--border-light);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+        }
+
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
-            color: #aaa;
-            font-size: 0.9rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        pre {
-            color: #4fc3f7;
-            font-size: 1rem;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
-        .code-comment {
-            color: #81c784;
-        }
-        
-        /* Protocols Section */
-        .protocols {
-            padding: 5rem 0;
-        }
-        
-        .protocols-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .protocol-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-        }
-        
-        .protocol-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .protocol-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-        }
-        
-        .protocol-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 3rem 0 1.5rem;
-        }
-        
-        .footer-content {
+
+        .code-lang {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .footer-column {
-            flex: 1;
-            min-width: 250px;
+
+        .copy-btn {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .footer-column h3 {
-            font-size: 1.3rem;
+
+        .copy-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .code-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #c9d1d9;
+            line-height: 2;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .code-content .comment { color: #6b7280; }
+        .code-content .string { color: #a5d6ff; }
+        .code-content .prompt { color: var(--success); font-weight: 700; }
+
+        .install-steps {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: all var(--transition-base);
+        }
+
+        .step:hover {
+            background: rgba(0, 212, 255, 0.05);
+            border-color: var(--border-light);
+            transform: translateX(-4px);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            border-radius: var(--radius-md);
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .step-content code {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .download-card {
+            max-width: 550px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .download-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow-strong);
+            border-color: var(--border-light);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.6rem 2.2rem;
+            border-radius: 0 0 16px 16px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .download-icon {
+            font-size: 4rem;
             margin-bottom: 1.5rem;
-            color: var(--accent-color);
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .footer-links {
+
+        .download-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .download-card .price {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+
+        .download-card .price span {
+            font-size: 1rem;
+            -webkit-text-fill-color: var(--text-secondary);
+        }
+
+        .features-list {
+            list-style: none;
+            text-align: right;
+            margin: 2rem 0;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+        }
+
+        .features-list li:hover {
+            color: var(--text-primary);
+            padding-right: 0.5rem;
+        }
+
+        .features-list li i {
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .community-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .community-card:hover::before {
+            opacity: 1;
+        }
+
+        .community-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+        }
+
+        .community-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.8rem;
+            transition: all var(--transition-base);
+        }
+
+        .community-card:hover .community-icon {
+            transform: scale(1.05);
+        }
+
+        .community-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+        }
+
+        .community-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.8rem;
+            line-height: 1.7;
+        }
+
+        .community-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all var(--transition-fast);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .community-link:hover {
+            gap: 0.9rem;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateX(-4px);
+        }
+
+        .footer {
+            background: linear-gradient(180deg, rgba(15, 22, 35, 0.95), rgba(5, 5, 15, 0.98));
+            border-top: 1px solid var(--border);
+            padding: 5rem 5% 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: inline-flex;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.9;
+            max-width: 320px;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 800;
+        }
+
+        .footer-links ul {
             list-style: none;
         }
-        
+
         .footer-links li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
-        
+
         .footer-links a {
-            color: #ccc;
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
+            transition: all var(--transition-fast);
             font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        /* Responsive Design */
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(-4px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: var(--radius-md);
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-1);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typeLine {
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-darker);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-right-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .loader-text {
+            margin-top: 1rem;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card-solid);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-xl);
+            z-index: 10000;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .header-content {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                background: rgba(5, 5, 15, 0.98);
                 flex-direction: column;
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+                gap: 0;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                border-radius: var(--radius-sm);
+                width: 100%;
                 text-align: center;
-                gap: 1rem;
             }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
+
             .mobile-menu-btn {
                 display: block;
-                position: absolute;
-                top: 1.5rem;
-                right: 20px;
             }
-            
-            nav {
-                width: 100%;
-                display: none;
+
+            .stats-bar {
+                grid-template-columns: 1fr;
             }
-            
-            nav.active {
-                display: block;
-                margin-top: 1rem;
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
-            
-            nav ul {
+
+            .footer-brand p {
+                margin: 0 auto;
+            }
+
+            .hero-buttons {
                 flex-direction: column;
-                gap: 0.5rem;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .install-card {
+                padding: 1.8rem;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .download-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-server"></i>
-                    <h1>VPS <span>Script Manager</span></h1>
-                </div>
-                
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#installation">Installation</a></li>
-                        <li><a href="#protocols">Protocols</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <div class="loader" id="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">VPSPLUS</div>
+    </div>
 
-    <!-- Hero Section -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <canvas id="particles-canvas"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <a href="#home" class="logo">
+            <i class="fas fa-crown"></i>
+            VPSPLUS
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#install">التثبيت</a></li>
+            <li><a href="#download">التحميل</a></li>
+            <li><a href="#community">التواصل</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
     <section class="hero" id="home">
-        <div class="container">
-            <h2>Powerful VPS Script for All Your Proxy Needs</h2>
-            <p>Deploy SSHWS, VLESS, VMESS, Trojan, SlowDNS, and Shadowsocks with a single command. Easy to use, fast, and reliable script for managing your VPS proxy services.</p>
-            <a href="#installation" class="cta-button">Get Started Now <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Script Features</h2>
-                <p>Our all-in-one script provides everything you need to set up a secure proxy server on your VPS</p>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-crown"></i>
+                الإصدار 3.0 الأقوى على الإطلاق
             </div>
-            
-            <div class="features-grid">
-                <!-- Feature 1 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="feature-content">
-                        <h3>Multi-Protocol Support</h3>
-                        <p>Support for all popular proxy protocols: SSHWS, VLESS, VMESS, Trojan, SlowDNS, and Shadowsocks. Choose what works best for your needs.</p>
-                        <div class="feature-tags">
-                            <span class="tag">SSHWS</span>
-                            <span class="tag">VLESS</span>
-                            <span class="tag">VMESS</span>
-                            <span class="tag">Trojan</span>
-                            <span class="tag">SlowDNS</span>
-                            <span class="tag">Shadowsocks</span>
-                        </div>
-                    </div>
+            <h1>
+                ثورة في إدارة<br>
+                <span class="highlight">VPS</span>
+            </h1>
+            <p>
+                سكريبت متكامل يجمع بين أقوى 6 بروتوكولات في واجهة واحدة فائقة السرعة وسهلة الاستخدام
+            </p>
+            <div class="hero-buttons">
+                <a href="#install" class="btn btn-primary btn-shine">
+                    <i class="fas fa-rocket"></i>
+                    ابدأ الآن مجاناً
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-play-circle"></i>
+                    شاهد العرض
+                </a>
+            </div>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-dot dot-red"></div>
+                    <div class="terminal-dot dot-yellow"></div>
+                    <div class="terminal-dot dot-green"></div>
+                    <span class="terminal-title">root@vpsplus:~</span>
                 </div>
-                
-                <!-- Feature 2 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                <div class="terminal-body">
+                    <div class="terminal-line" style="animation-delay: 1.2s;">
+                        <span class="terminal-prompt">root@vpsplus:~#</span>
+                        <span class="terminal-command"> curl -sSL https://vpsplus.dev/install | bash</span>
                     </div>
-                    <div class="feature-content">
-                        <h3>Fast Installation</h3>
-                        <p>Get your proxy server up and running in minutes with our one-line installation script. No complex configuration needed.</p>
-                        <div class="feature-tags">
-                            <span class="tag">One-Command Setup</span>
-                            <span class="tag">Auto Configuration</span>
-                            <span class="tag">Quick Deployment</span>
-                        </div>
+                    <div class="terminal-line" style="animation-delay: 2.2s;">
+                        <span class="terminal-highlight">[★]</span>
+                        <span class="terminal-output"> VPSPLUS Ultimate Installer v3.0</span>
                     </div>
-                </div>
-                
-                <!-- Feature 3 -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tools"></i>
+                    <div class="terminal-line" style="animation-delay: 2.7s;">
+                        <span class="terminal-success">[✓]</span>
+                        <span class="terminal-output"> System: Ubuntu 22.04 LTS (Optimal)</span>
                     </div>
-                    <div class="feature-content">
-                        <h3>Easy Management</h3>
-                        <p>Simple menu-driven interface to manage all your proxy services. Start, stop, restart, or reconfigure with ease.</p>
-                        <div class="feature-tags">
-                            <span class="tag">User-Friendly Menu</span>
-                            <span class="tag">Service Management</span>
-                            <span class="tag">Logs Viewer</span>
-                        </div>
+                    <div class="terminal-line" style="animation-delay: 3.2s;">
+                        <span class="terminal-success">[✓]</span>
+                        <span class="terminal-output"> RAM: 2GB | CPU: 2 vCores</span>
+                    </div>
+                    <div class="terminal-line" style="animation-delay: 3.7s;">
+                        <span class="terminal-success">[✓]</span>
+                        <span class="terminal-output"> Installing: Xray + OpenVPN + SSH + SSR + UDP + WS</span>
+                    </div>
+                    <div class="terminal-line" style="animation-delay: 4.2s;">
+                        <span class="terminal-success">[✓]</span>
+                        <span class="terminal-output"> Installation completed in 24 seconds</span>
+                    </div>
+                    <div class="terminal-line" style="animation-delay: 4.7s;">
+                        <span class="terminal-prompt">root@vpsplus:~#</span>
+                        <span class="terminal-command"> vpsplus menu</span>
+                    </div>
+                    <div class="terminal-line" style="animation-delay: 5.2s;">
+                        <span class="terminal-primary">⚡</span>
+                        <span class="terminal-success"> Welcome to VPSPLUS Control Panel</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Installation Section -->
-    <section class="installation" id="installation">
-        <div class="container">
-            <div class="section-title">
-                <h2>Quick Installation</h2>
-                <p>Copy and paste the following command to install the script on your VPS. Requirements: Ubuntu/Debian system with root access.</p>
-            </div>
-            
-            <div class="code-container">
-                <div class="code-header">
-                    <span>Installation Command</span>
-                    <button class="copy-btn" id="copyBtn">Copy Code</button>
+    <div class="stats-bar">
+        <div class="stat-item reveal">
+            <div class="stat-number" data-target="25000">0</div>
+            <div class="stat-label">تثبيت ناجح</div>
+        </div>
+        <div class="stat-item reveal">
+            <div class="stat-number" data-target="99.9">0</div>
+            <div class="stat-label">% uptime</div>
+        </div>
+        <div class="stat-item reveal">
+            <div class="stat-number" data-target="6">0</div>
+            <div class="stat-label">بروتوكولات مدعومة</div>
+        </div>
+        <div class="stat-item reveal">
+            <div class="stat-number" data-target="247">0</div>
+            <div class="stat-label">دعم فني</div>
+        </div>
+    </div>
+
+    <section class="section" id="features">
+        <div class="section-header reveal">
+            <span class="section-tag">مميزات لا تُقارن</span>
+            <h2 class="section-title">كل ما تحتاجه في <span class="highlight">مكان واحد</span></h2>
+            <p class="section-desc">
+                مجموعة متكاملة من أقوى الأدوات والبروتوكولات في سكريبت واحد
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <article class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-broadcast-tower"></i>
                 </div>
-                <pre><code># Update system packages
-apt update && apt upgrade -y
+                <h3>UDP Custom</h3>
+                <p>دعم كامل لبروتوكول UDP مع إعدادات مخصصة للحصول على أفضل أداء وسرعة في الاتصال وتجاوز القيود</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">UDP</span>
+                    <span class="feature-tag">Custom</span>
+                    <span class="feature-tag">高性能</span>
+                </div>
+            </article>
 
-# Download and run the installation script
-wget https://raw.githubusercontent.com/vps-script-manager/main/install.sh
+            <article class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>WebSocket + TLS</h3>
+                <p>تشفير الاتصالات عبر WebSocket مع دعم كامل لـ TLS 1.3 لتجاوز القيود والحصول على اتصال مستقر وآمن</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">WSS</span>
+                    <span class="feature-tag">TLS 1.3</span>
+                    <span class="feature-tag">CDN</span>
+                </div>
+            </article>
 
-# Make the script executable
-chmod +x install.sh
+            <article class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Xray Core</h3>
+                <p>أحدث إصدار من Xray Core مع دعم VLESS، VMess، Trojan، Shadowsocks وإعدادات متقدمة</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">VLESS</span>
+                    <span class="feature-tag">VMess</span>
+                    <span class="feature-tag">Trojan</span>
+                </div>
+            </article>
 
-# Run the installation
-./install.sh
+            <article class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>OpenVPN</h3>
+                <p>إعدادات جاهزة ومحسّنة لـ OpenVPN مع شهادات SSL مخصصة وإدارة سهلة للمستخدمين</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">OpenVPN</span>
+                    <span class="feature-tag">SSL</span>
+                    <span class="feature-tag">TUN</span>
+                </div>
+            </article>
 
-# Follow the on-screen instructions to configure your proxy services</code></pre>
+            <article class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <h3>SSH Management</h3>
+                <p>إدارة كاملة لحسابات SSH مع تحديد السرعة والمدة وعدد الاتصالات المتزامنة و Dropbear + Stunnel</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">SSH</span>
+                    <span class="feature-tag">Dropbear</span>
+                    <span class="feature-tag">Stunnel</span>
+                </div>
+            </article>
+
+            <article class="feature-card reveal">
+                <div class="feature-icon">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h3>ShadowsocksR</h3>
+                <p>دعم ShadowsocksR مع بروتوكولات متعددة وإخفاء حركة المرور بشكل فعال وأمان عالي</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">SSR</span>
+                    <span class="feature-tag">Obfs</span>
+                    <span class="feature-tag">AES-256</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section install-section" id="install">
+        <div class="section-header reveal">
+            <span class="section-tag">التثبيت خلال دقائق</span>
+            <h2 class="section-title">ابدأ في <span class="highlight">3 خطوات</span> فقط</h2>
+            <p class="section-desc">
+                لا تحتاج لأي خبرة تقنية، فقط نسخ ولصق الأوامر
+            </p>
+        </div>
+
+        <div class="install-container reveal">
+            <div class="install-card">
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-lang">
+                            <i class="fas fa-terminal"></i>
+                            Bash Script
+                        </div>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                            نسخ الأمر
+                        </button>
+                    </div>
+                    <div class="code-content"><span class="comment"># التثبيت السريع (الطريقة الموصى بها)</span>
+bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span>
+
+<span class="comment"># أو باستخدام wget</span>
+bash <span class="string">&lt;(wget -qO- https://vpsplus.dev/install.sh)</span>
+
+<span class="comment"># للتثبيت المباشر من GitHub</span>
+git clone https://github.com/vpsplus/vpsplus-script.git &amp;&amp; cd vpsplus-script &amp;&amp; bash install.sh</div>
+                </div>
+
+                <div class="install-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>تحديث النظام</h4>
+                            <p>تأكد من تحديث نظام <code>Ubuntu 20.04+</code> أو <code>Debian 11+</code> الخاص بك</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>تشغيل أمر التثبيت</h4>
+                            <p>انسخ الأمر أعلاه والصقه في الطرفية (SSH) ثم اضغط Enter</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>الوصول للوحة التحكم</h4>
+                            <p>بعد اكتمال التثبيت، اكتب <code>vpsplus</code> أو <code>menu</code> للوصول للوحة التحكم</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-lang">
+                            <i class="fas fa-cog"></i>
+                            Commands
+                        </div>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="fas fa-copy"></i>
+                            نسخ الأوامر
+                        </button>
+                    </div>
+                    <div class="code-content"><span class="comment"># فتح لوحة التحكم الرئيسية</span>
+vpsplus
+
+<span class="comment"># عرض حالة جميع الخدمات</span>
+vpsplus --status
+
+<span class="comment"># إضافة مستخدم SSH جديد</span>
+vpsplus --add-user
+
+<span class="comment"># إعدادات Xray (VLESS/VMess)</span>
+vpsplus --xray
+
+<span class="comment"># مراقبة الإحصائيات</span>
+vpsplus --monitor
+
+<span class="comment"># تحديث السكريبت لأحدث إصدار</span>
+vpsplus --update</div>
+                </div>
             </div>
-            
-            <div style="margin-top: 2rem; background-color: #e3f2fd; padding: 1.5rem; border-radius: 10px;">
-                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Important Notes:</h3>
-                <ul style="padding-left: 1.5rem; color: #555;">
-                    <li>Make sure you have a fresh Ubuntu/Debian VPS (recommended: Ubuntu 20.04+)</li>
-                    <li>Run the script as root user or with sudo privileges</li>
-                    <li>The script will automatically configure firewall (UFW/iptables)</li>
-                    <li>After installation, you can access the management menu with: <code style="background: #e8eaf6; padding: 2px 5px; border-radius: 3px;">vps-menu</code></li>
+        </div>
+    </section>
+
+    <section class="section download-section" id="download">
+        <div class="section-header reveal">
+            <span class="section-tag">مجاني 100%</span>
+            <h2 class="section-title">اختر <span class="highlight">حريتك</span></h2>
+            <p class="section-desc">
+                VPSPLUS متاح مجاناً للأبد مع تحديثات ودعم مستمر
+            </p>
+        </div>
+
+        <div class="download-card popular reveal">
+            <div class="popular-badge">✨ الأكثر تحميلاً ✨</div>
+            <div class="download-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+            <h3>VPSPLUS ULTIMATE</h3>
+            <div class="price">
+                مجاناً <span>للأبد</span>
+            </div>
+            <ul class="features-list">
+                <li><i class="fas fa-check-circle"></i> جميع البروتوكولات: UDP, WS, Xray, VPN, SSH, SSR</li>
+                <li><i class="fas fa-check-circle"></i> لوحة تحكم تفاعلية Full-Color</li>
+                <li><i class="fas fa-check-circle"></i> إدارة مستخدمين غير محدودة</li>
+                <li><i class="fas fa-check-circle"></i> مراقبة فورية للموارد</li>
+                <li><i class="fas fa-check-circle"></i> تحديثات أوتوماتيكية</li>
+                <li><i class="fas fa-check-circle"></i> دعم Ubuntu/Debian/CentOS/Almalinux</li>
+                <li><i class="fas fa-check-circle"></i> دعم فني 24/7 عبر التيليجرام</li>
+                <li><i class="fas fa-check-circle"></i> نسخ احتياطي واستعادة</li>
+            </ul>
+            <a href="#install" class="btn btn-primary btn-shine" style="width: 100%; justify-content: center;">
+                <i class="fas fa-download"></i>
+                ابدأ التثبيت الآن
+            </a>
+        </div>
+    </section>
+
+    <section class="section" id="community">
+        <div class="section-header reveal">
+            <span class="section-tag">انضم إلينا</span>
+            <h2 class="section-title">كن جزءاً من <span class="highlight">المجتمع</span></h2>
+            <p class="section-desc">
+                تواصل مع آلاف المستخدمين والمطورين
+            </p>
+        </div>
+
+        <div class="community-grid">
+            <article class="community-card reveal">
+                <div class="community-icon" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.05)); color: var(--primary);">
+                    <i class="fab fa-telegram"></i>
+                </div>
+                <h4>قناة التيليجرام</h4>
+                <p>أحدث التحديثات والإعلانات والنسخ الجديدة أول بأول</p>
+                <a href="#" class="community-link" onclick="showComingSoon(event)">
+                    انضم الآن
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
+
+            <article class="community-card reveal">
+                <div class="community-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); color: var(--success);">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h4>مجموعة الواتساب</h4>
+                <p>دعم فني مباشر ومساعدة فورية من المجتمع</p>
+                <a href="#" class="community-link" onclick="showComingSoon(event)">
+                    انضم للمجموعة
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
+
+            <article class="community-card reveal">
+                <div class="community-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05)); color: var(--accent);">
+                    <i class="fab fa-github"></i>
+                </div>
+                <h4>GitHub</h4>
+                <p>استعرض الكود المصدري وساهم في التطوير</p>
+                <a href="#" class="community-link" onclick="showComingSoon(event)">
+                    زيارة المستودع
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#home" class="logo">
+                    <i class="fas fa-crown"></i>
+                    VPSPLUS
+                </a>
+                <p>
+                    VPSPLOS هو السكريبت الأشهر في العالم العربي لإدارة الخوادم السحابية، يجمع بين القوة والسهولة مع دمج أحدث التقنيات.
+                </p>
+            </div>
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#features">المميزات</a></li>
+                    <li><a href="#install">طريقة التثبيت</a></li>
+                    <li><a href="#download">التحميل</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>البروتوكولات</h4>
+                <ul>
+                    <li><a href="#features">UDP Custom</a></li>
+                    <li><a href="#features">WebSocket</a></li>
+                    <li><a href="#features">Xray Core</a></li>
+                    <li><a href="#features">OpenVPN</a></li>
+                    <li><a href="#features">SSH</a></li>
+                    <li><a href="#features">SSR</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>الدعم</h4>
+                <ul>
+                    <li><a href="#" onclick="showComingSoon(event)">التوثيق الرسمي</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">الأسئلة الشائعة</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">طلب مساعدة</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">اقتراح ميزة</a></li>
                 </ul>
             </div>
         </div>
-    </section>
-
-    <!-- Protocols Section -->
-    <section class="protocols" id="protocols">
-        <div class="container">
-            <div class="section-title">
-                <h2>Supported Protocols</h2>
-                <p>Our script supports the most secure and efficient proxy protocols available</p>
-            </div>
-            
-            <div class="protocols-grid">
-                <!-- Protocol 1 -->
-                <div class="protocol-card">
-                    <div class="protocol-icon">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <h3>SSHWS</h3>
-                    <p>SSH over WebSocket for bypassing restrictive networks</p>
-                </div>
-                
-                <!-- Protocol 2 -->
-                <div class="protocol-card">
-                    <div class="protocol-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>VLESS</h3>
-                    <p>Lightweight and fast XTLS-based protocol with improved performance</p>
-                </div>
-                
-                <!-- Protocol 3 -->
-                <div class="protocol-card">
-                    <div class="protocol-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>VMESS</h3>
-                    <p>Secure and reliable protocol with authentication and encryption</p>
-                </div>
-                
-                <!-- Protocol 4 -->
-                <div class="protocol-card">
-                    <div class="protocol-icon">
-                        <i class="fas fa-ghost"></i>
-                    </div>
-                    <h3>Trojan</h3>
-                    <p>Disguises traffic as HTTPS to avoid detection and blocking</p>
-                </div>
-                
-                <!-- Protocol 5 -->
-                <div class="protocol-card">
-                    <div class="protocol-icon">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <h3>SlowDNS</h3>
-                    <p>Uses DNS tunneling for stable connections in restricted networks</p>
-                </div>
-                
-                <!-- Protocol 6 -->
-                <div class="protocol-card">
-                    <div class="protocol-icon">
-                        <i class="fas fa-user-secret"></i>
-                    </div>
-                    <h3>Shadowsocks</h3>
-                    <p>Fast and lightweight SOCKS5 proxy with strong encryption</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>VPS Script Manager</h3>
-                    <p>A powerful, all-in-one script for deploying and managing proxy services on your VPS. Easy to use, fast, and reliable.</p>
-                    <div style="margin-top: 1rem;">
-                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
-                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.2rem;"><i class="fab fa-telegram"></i></a>
-                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fas fa-envelope"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#installation">Installation</a></li>
-                        <li><a href="#protocols">Protocols</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Troubleshooting</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 VPS Script Manager. All rights reserved. | This tool is for educational purposes only.</p>
+        <div class="footer-bottom">
+            <p>© 2026 VPSPLUS - جميع الحقوق محفوظة</p>
+            <div class="social-links">
+                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-telegram"></i></a>
+                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-github"></i></a>
+                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-youtube"></i></a>
+                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-discord"></i></a>
             </div>
         </div>
     </footer>
 
+    <div id="toast" class="toast"></div>
+
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const nav = document.getElementById('mainNav');
-            nav.classList.toggle('active');
-            
-            // Change icon
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('fa-bars')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 800);
+        });
+
+        // Cursor Glow Effect
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.cssText = `left: ${e.clientX}px; top: ${e.clientY}px;`;
+        });
+
+        // Particles Effect
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const density = Math.min(150, Math.floor((canvas.width * canvas.height) / 12000));
+            for (let i = 0; i < density; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        const opacity = (1 - distance / 100) * 0.08;
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const particle of particles) {
+                particle.update();
+                particle.draw();
+            }
+            connectParticles();
+            animationId = requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                navbar.classList.remove('scrolled');
             }
         });
-        
-        // Copy code button functionality
-        document.getElementById('copyBtn').addEventListener('click', function() {
-            const code = document.querySelector('pre code').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                const originalText = this.textContent;
-                this.textContent = 'Copied!';
-                this.style.backgroundColor = '#4caf50';
-                
-                setTimeout(() => {
-                    this.textContent = originalText;
-                    this.style.backgroundColor = '';
-                }, 2000);
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
-        
-        // Smooth scrolling for anchor links
+
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Close mobile menu if open
-                    const nav = document.getElementById('mainNav');
-                    const mobileBtnIcon = document.querySelector('#mobileMenuBtn i');
-                    if (nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                        mobileBtnIcon.classList.remove('fa-times');
-                        mobileBtnIcon.classList.add('fa-bars');
-                    }
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Reveal animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Counter animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseFloat(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        statNumbers.forEach(num => counterObserver.observe(num));
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                current = Math.floor(target * easeOut);
+                element.textContent = current.toLocaleString();
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    element.textContent = target.toLocaleString();
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Copy code function
+        function copyCode(btn) {
+            const codeBlock = btn.closest('.code-block').querySelector('.code-content');
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalText;
+                }, 2000);
+                showToast('تم نسخ الأمر بنجاح', 'fa-check-circle');
+            }).catch(() => {
+                showToast('حدث خطأ، حاول مرة أخرى', 'fa-exclamation-circle');
+            });
+        }
+
+        function showToast(message, icon = 'fa-info-circle') {
+            const toast = document.getElementById('toast');
+            toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function showComingSoon(e) {
+            e.preventDefault();
+            showToast('قريباً جداً... تابعنا على التيليجرام', 'fa-clock');
+        }
+
+        // Active nav highlight
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
                 }
             });
         });
     </script>
 </body>
-                                                                  </html>
+    </html>
