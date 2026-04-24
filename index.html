@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VPSPLUS - أقوى سكريبت إدارة VPS متكامل يدعم UDP، WebSocket، Xray، OpenVPN، SSH، و SSR">
-    <meta name="keywords" content="VPS, UDP, WebSocket, Xray, OpenVPN, SSH, SSR, سكريبت, إدارة سيرفر">
+    <meta name="description" content="VPSPLUS - The most powerful VPS management script supporting UDP, WebSocket, Xray, OpenVPN, SSH, SSR, L2TP, PPTP, SSTP, WireGuard, and more">
+    <meta name="keywords" content="VPS, UDP, WebSocket, Xray, OpenVPN, SSH, SSR, L2TP, PPTP, SSTP, WSS, WireGuard, SlowDNS, ZIVPN, Script, Server Management">
     <meta name="author" content="VPSPLUS Team">
     <meta name="theme-color" content="#00d4ff">
-    <meta property="og:title" content="VPSPLUS SCRIPT - أقوى سكريبت إدارة VPS">
-    <meta property="og:description" content="سكريبت متكامل لإدارة خوادم VPS مع دعم جميع البروتوكولات">
+    <meta property="og:title" content="VPSPLUS SCRIPT - Ultimate VPS Management Script">
+    <meta property="og:description" content="Complete VPS management script supporting all major protocols">
     <meta property="og:type" content="website">
-    <title>VPSPLUS SCRIPT | أقوى سكريبت إدارة VPS</title>
+    <title>VPSPLUS SCRIPT | Ultimate VPS Management Solution</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -69,7 +69,7 @@
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg-darker);
             color: var(--text-primary);
             overflow-x: hidden;
@@ -211,7 +211,7 @@
             content: '';
             position: absolute;
             bottom: 0;
-            right: 0;
+            left: 0;
             width: 0;
             height: 2px;
             background: var(--gradient-1);
@@ -342,7 +342,7 @@
         .btn {
             padding: 1rem 2.5rem;
             border-radius: var(--radius-md);
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
@@ -599,9 +599,9 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -610,7 +610,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             border-radius: var(--radius-xl);
-            padding: 2.5rem;
+            padding: 1.8rem;
             transition: all var(--transition-base);
             position: relative;
             overflow: hidden;
@@ -635,23 +635,22 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: var(--border-light);
             box-shadow: var(--shadow-xl), var(--shadow-glow);
         }
 
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 1.8rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
             position: relative;
             transition: all var(--transition-base);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1));
         }
 
         .feature-card:hover .feature-icon {
@@ -659,39 +658,91 @@
         }
 
         .feature-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
             font-weight: 800;
         }
 
         .feature-card p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.8;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
 
         .feature-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 1.5rem;
+            gap: 0.4rem;
+            margin-top: 1rem;
         }
 
         .feature-tag {
-            padding: 0.3rem 1rem;
+            padding: 0.2rem 0.8rem;
             background: rgba(0, 212, 255, 0.08);
             border: 1px solid rgba(0, 212, 255, 0.15);
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--primary-light);
             font-weight: 600;
             font-family: 'JetBrains Mono', monospace;
-            transition: all var(--transition-fast);
         }
 
-        .feature-card:hover .feature-tag {
-            background: rgba(0, 212, 255, 0.15);
-            border-color: rgba(0, 212, 255, 0.3);
+        .protocols-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 212, 255, 0.03), transparent);
+        }
+
+        .protocols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .protocol-card {
+            background: rgba(15, 22, 35, 0.6);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .protocol-card:hover {
+            transform: translateX(5px);
+            border-color: var(--border-light);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .protocol-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .protocol-info h4 {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .protocol-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .protocol-status {
+            margin-right: auto;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
         }
 
         .install-section {
@@ -719,22 +770,11 @@
             box-shadow: var(--shadow-glow-strong);
         }
 
-        .install-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.05), transparent);
-            pointer-events: none;
-        }
-
         .code-block {
             background: rgba(10, 15, 26, 0.9);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            padding: 1.8rem;
+            padding: 1.5rem;
             margin: 1.5rem 0;
             position: relative;
             transition: all var(--transition-base);
@@ -771,7 +811,7 @@
             padding: 0.5rem 1.2rem;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
             font-weight: 700;
             transition: all var(--transition-fast);
@@ -793,9 +833,9 @@
 
         .code-content {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #c9d1d9;
-            line-height: 2;
+            line-height: 1.8;
             direction: ltr;
             text-align: left;
             overflow-x: auto;
@@ -808,16 +848,16 @@
         .code-content .prompt { color: var(--success); font-weight: 700; }
 
         .install-steps {
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .step {
             display: flex;
-            gap: 1.2rem;
-            padding: 1.5rem;
+            gap: 1rem;
+            padding: 1.2rem;
             background: rgba(255,255,255,0.02);
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
@@ -831,39 +871,39 @@
         }
 
         .step-number {
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
+            width: 45px;
+            height: 45px;
+            min-width: 45px;
             border-radius: var(--radius-md);
             background: var(--gradient-1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: white;
             box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         }
 
         .step-content h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
             font-weight: 800;
         }
 
         .step-content p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
 
         .step-content code {
             background: rgba(0, 212, 255, 0.1);
             color: var(--primary);
-            padding: 0.2rem 0.6rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
 
@@ -874,7 +914,7 @@
             backdrop-filter: blur(10px);
             border: 2px solid var(--border);
             border-radius: var(--radius-xl);
-            padding: 3.5rem;
+            padding: 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -894,17 +934,17 @@
             transform: translateX(-50%);
             background: var(--gradient-1);
             color: white;
-            padding: 0.6rem 2.2rem;
+            padding: 0.5rem 2rem;
             border-radius: 0 0 16px 16px;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
         }
 
         .download-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -912,13 +952,13 @@
         }
 
         .download-card h3 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 0.5rem;
             font-weight: 900;
         }
 
         .download-card .price {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
             background: var(--gradient-1);
             -webkit-background-clip: text;
@@ -928,42 +968,43 @@
         }
 
         .download-card .price span {
-            font-size: 1rem;
+            font-size: 0.9rem;
             -webkit-text-fill-color: var(--text-secondary);
         }
 
         .features-list {
             list-style: none;
-            text-align: right;
-            margin: 2rem 0;
+            text-align: left;
+            margin: 1.5rem 0;
             padding: 0;
         }
 
         .features-list li {
-            padding: 0.9rem 0;
+            padding: 0.7rem 0;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.7rem;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all var(--transition-fast);
         }
 
         .features-list li:hover {
             color: var(--text-primary);
-            padding-right: 0.5rem;
+            padding-left: 0.5rem;
         }
 
         .features-list li i {
             color: var(--success);
-            font-size: 1.1rem;
+            font-size: 1rem;
+            min-width: 20px;
         }
 
         .community-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -973,7 +1014,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--border);
             border-radius: var(--radius-xl);
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
             transition: all var(--transition-base);
             position: relative;
@@ -997,20 +1038,20 @@
         }
 
         .community-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             border-color: var(--border-light);
             box-shadow: var(--shadow-xl), var(--shadow-glow);
         }
 
         .community-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 1.8rem;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
             transition: all var(--transition-base);
         }
 
@@ -1019,16 +1060,16 @@
         }
 
         .community-card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.15rem;
+            margin-bottom: 0.6rem;
             font-weight: 800;
         }
 
         .community-card p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.8rem;
-            line-height: 1.7;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .community-link {
@@ -1037,14 +1078,14 @@
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             transition: all var(--transition-fast);
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: var(--radius-sm);
         }
 
         .community-link:hover {
-            gap: 0.9rem;
+            gap: 0.8rem;
             background: rgba(0, 212, 255, 0.1);
             transform: translateX(-4px);
         }
@@ -1052,7 +1093,7 @@
         .footer {
             background: linear-gradient(180deg, rgba(15, 22, 35, 0.95), rgba(5, 5, 15, 0.98));
             border-top: 1px solid var(--border);
-            padding: 5rem 5% 2rem;
+            padding: 4rem 5% 2rem;
             position: relative;
             z-index: 2;
         }
@@ -1062,25 +1103,25 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
+            gap: 2rem;
         }
 
         .footer-brand .logo {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
             display: inline-flex;
         }
 
         .footer-brand p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.9;
-            max-width: 320px;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            max-width: 300px;
         }
 
         .footer-links h4 {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
             color: var(--text-primary);
             font-weight: 800;
         }
@@ -1090,17 +1131,17 @@
         }
 
         .footer-links li {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: all var(--transition-fast);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .footer-links a:hover {
@@ -1110,29 +1151,29 @@
 
         .footer-bottom {
             max-width: 1200px;
-            margin: 4rem auto 0;
-            padding-top: 2rem;
+            margin: 3rem auto 0;
+            padding-top: 1.5rem;
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .footer-bottom p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .social-links a {
-            width: 45px;
-            height: 45px;
+            width: 38px;
+            height: 38px;
             border-radius: var(--radius-md);
             background: rgba(0, 212, 255, 0.05);
             border: 1px solid var(--border);
@@ -1142,7 +1183,7 @@
             color: var(--text-secondary);
             text-decoration: none;
             transition: all var(--transition-base);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .social-links a:hover {
@@ -1174,11 +1215,6 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
         }
 
         .reveal {
@@ -1214,8 +1250,8 @@
         }
 
         .loader-spinner {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border: 3px solid var(--border);
             border-top-color: var(--primary);
             border-right-color: var(--secondary);
@@ -1226,9 +1262,9 @@
         .loader-text {
             margin-top: 1rem;
             color: var(--primary);
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 800;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
         }
 
         .toast {
@@ -1238,19 +1274,19 @@
             transform: translateX(-50%) translateY(100px);
             background: var(--bg-card-solid);
             color: var(--text-primary);
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             border-radius: var(--radius-md);
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow-xl);
             z-index: 10000;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
         .toast.show {
             opacity: 1;
@@ -1263,7 +1299,7 @@
             }
             .stats-bar {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
+                gap: 1rem;
             }
         }
 
@@ -1276,7 +1312,7 @@
                 left: 0;
                 background: rgba(5, 5, 15, 0.98);
                 flex-direction: column;
-                padding: 1.5rem;
+                padding: 1rem;
                 border-bottom: 1px solid var(--border);
                 gap: 0;
                 backdrop-filter: blur(20px);
@@ -1292,7 +1328,7 @@
 
             .nav-links a {
                 display: block;
-                padding: 1rem;
+                padding: 0.8rem;
                 border-radius: var(--radius-sm);
                 width: 100%;
                 text-align: center;
@@ -1322,12 +1358,12 @@
 
             .btn {
                 width: 100%;
-                max-width: 280px;
+                max-width: 260px;
                 justify-content: center;
             }
 
             .install-card {
-                padding: 1.8rem;
+                padding: 1.5rem;
             }
 
             .step {
@@ -1337,10 +1373,14 @@
             }
 
             .download-card {
-                padding: 2rem 1.5rem;
+                padding: 1.8rem 1.2rem;
             }
 
             .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .protocols-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -1361,11 +1401,12 @@
             VPSPLUS
         </a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#home">الرئيسية</a></li>
-            <li><a href="#features">المميزات</a></li>
-            <li><a href="#install">التثبيت</a></li>
-            <li><a href="#download">التحميل</a></li>
-            <li><a href="#community">التواصل</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#protocols">Protocols</a></li>
+            <li><a href="#install">Install</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="#community">Community</a></li>
         </ul>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
             <i class="fas fa-bars"></i>
@@ -1376,23 +1417,23 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-crown"></i>
-                الإصدار 3.0 الأقوى على الإطلاق
+                Version 4.0 - The Ultimate Release
             </div>
             <h1>
-                ثورة في إدارة<br>
-                <span class="highlight">VPS</span>
+                Revolution in<br>
+                <span class="highlight">VPS Management</span>
             </h1>
             <p>
-                سكريبت متكامل يجمع بين أقوى 6 بروتوكولات في واجهة واحدة فائقة السرعة وسهلة الاستخدام
+                The most comprehensive VPS management script supporting 15+ protocols in one powerful, easy-to-use interface
             </p>
             <div class="hero-buttons">
                 <a href="#install" class="btn btn-primary btn-shine">
                     <i class="fas fa-rocket"></i>
-                    ابدأ الآن مجاناً
+                    Install Now - Free
                 </a>
                 <a href="#features" class="btn btn-secondary">
                     <i class="fas fa-play-circle"></i>
-                    شاهد العرض
+                    See Demo
                 </a>
             </div>
 
@@ -1410,7 +1451,7 @@
                     </div>
                     <div class="terminal-line" style="animation-delay: 2.2s;">
                         <span class="terminal-highlight">[★]</span>
-                        <span class="terminal-output"> VPSPLUS Ultimate Installer v3.0</span>
+                        <span class="terminal-output"> VPSPLUS Ultimate Installer v4.0</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 2.7s;">
                         <span class="terminal-success">[✓]</span>
@@ -1422,19 +1463,18 @@
                     </div>
                     <div class="terminal-line" style="animation-delay: 3.7s;">
                         <span class="terminal-success">[✓]</span>
-                        <span class="terminal-output"> Installing: Xray + OpenVPN + SSH + SSR + UDP + WS</span>
+                        <span class="terminal-output"> Installing: 15+ Protocols (SSH, Xray, OpenVPN, WireGuard...)</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 4.2s;">
                         <span class="terminal-success">[✓]</span>
-                        <span class="terminal-output"> Installation completed in 24 seconds</span>
+                        <span class="terminal-output"> Installation completed in 28 seconds</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 4.7s;">
                         <span class="terminal-prompt">root@vpsplus:~#</span>
                         <span class="terminal-command"> vpsplus menu</span>
                     </div>
                     <div class="terminal-line" style="animation-delay: 5.2s;">
-                        <span class="terminal-primary">⚡</span>
-                        <span class="terminal-success"> Welcome to VPSPLUS Control Panel</span>
+                        <span class="terminal-success">⚡ Welcome to VPSPLUS Control Panel</span>
                     </div>
                 </div>
             </div>
@@ -1443,91 +1483,91 @@
 
     <div class="stats-bar">
         <div class="stat-item reveal">
-            <div class="stat-number" data-target="25000">0</div>
-            <div class="stat-label">تثبيت ناجح</div>
+            <div class="stat-number" data-target="35000">0</div>
+            <div class="stat-label">Successful Installs</div>
         </div>
         <div class="stat-item reveal">
-            <div class="stat-number" data-target="99.9">0</div>
-            <div class="stat-label">% uptime</div>
+            <div class="stat-number" data-target="99.99">0</div>
+            <div class="stat-label">% Uptime</div>
         </div>
         <div class="stat-item reveal">
-            <div class="stat-number" data-target="6">0</div>
-            <div class="stat-label">بروتوكولات مدعومة</div>
+            <div class="stat-number" data-target="15">0</div>
+            <div class="stat-label">Protocols Supported</div>
         </div>
         <div class="stat-item reveal">
             <div class="stat-number" data-target="247">0</div>
-            <div class="stat-label">دعم فني</div>
+            <div class="stat-label">24/7 Support</div>
         </div>
     </div>
 
     <section class="section" id="features">
         <div class="section-header reveal">
-            <span class="section-tag">مميزات لا تُقارن</span>
-            <h2 class="section-title">كل ما تحتاجه في <span class="highlight">مكان واحد</span></h2>
+            <span class="section-tag">Unmatched Features</span>
+            <h2 class="section-title">Everything You Need in <span class="highlight">One Script</span></h2>
             <p class="section-desc">
-                مجموعة متكاملة من أقوى الأدوات والبروتوكولات في سكريبت واحد
+                Complete toolkit combining the most powerful protocols and tools in a single integrated environment
             </p>
         </div>
 
         <div class="features-grid">
             <article class="feature-card reveal">
-                <div class="feature-icon">
+                <div class="feature-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
                     <i class="fas fa-broadcast-tower"></i>
                 </div>
                 <h3>UDP Custom</h3>
-                <p>دعم كامل لبروتوكول UDP مع إعدادات مخصصة للحصول على أفضل أداء وسرعة في الاتصال وتجاوز القيود</p>
+                <p>Complete UDP protocol support with custom settings for optimal performance and connection speed, bypassing restrictions</p>
                 <div class="feature-tags">
                     <span class="feature-tag">UDP</span>
                     <span class="feature-tag">Custom</span>
-                    <span class="feature-tag">高性能</span>
+                    <span class="feature-tag">High Performance</span>
                 </div>
             </article>
 
             <article class="feature-card reveal">
-                <div class="feature-icon">
+                <div class="feature-icon" style="background: rgba(124, 58, 237, 0.1); color: var(--secondary);">
                     <i class="fas fa-exchange-alt"></i>
                 </div>
-                <h3>WebSocket + TLS</h3>
-                <p>تشفير الاتصالات عبر WebSocket مع دعم كامل لـ TLS 1.3 لتجاوز القيود والحصول على اتصال مستقر وآمن</p>
+                <h3>WebSocket + WSS</h3>
+                <p>Secure WebSocket connections with full TLS 1.3 support, CDN compatibility, and traffic masking capabilities</p>
                 <div class="feature-tags">
                     <span class="feature-tag">WSS</span>
                     <span class="feature-tag">TLS 1.3</span>
-                    <span class="feature-tag">CDN</span>
+                    <span class="feature-tag">CDN Ready</span>
                 </div>
             </article>
 
             <article class="feature-card reveal">
-                <div class="feature-icon">
+                <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
                     <i class="fas fa-shield-alt"></i>
                 </div>
-                <h3>Xray Core</h3>
-                <p>أحدث إصدار من Xray Core مع دعم VLESS، VMess، Trojan، Shadowsocks وإعدادات متقدمة</p>
+                <h3>Xray Core + XTLS</h3>
+                <p>Latest Xray core with XTLS Vision support, VLESS, VMess, Trojan, Shadowsocks, and advanced routing</p>
                 <div class="feature-tags">
                     <span class="feature-tag">VLESS</span>
-                    <span class="feature-tag">VMess</span>
+                    <span class="feature-tag">XTLS</span>
                     <span class="feature-tag">Trojan</span>
                 </div>
             </article>
 
             <article class="feature-card reveal">
-                <div class="feature-icon">
+                <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
                     <i class="fas fa-globe"></i>
                 </div>
-                <h3>OpenVPN</h3>
-                <p>إعدادات جاهزة ومحسّنة لـ OpenVPN مع شهادات SSL مخصصة وإدارة سهلة للمستخدمين</p>
+                <h3>OpenVPN + L2TP</h3>
+                <p>Ready-to-use OpenVPN setup with custom SSL certificates, plus L2TP/IPsec support for legacy devices</p>
                 <div class="feature-tags">
                     <span class="feature-tag">OpenVPN</span>
-                    <span class="feature-tag">SSL</span>
-                    <span class="feature-tag">TUN</span>
+                    <span class="feature-tag">L2TP/IPsec</span>
+                    <span class="feature-tag">SSL/TLS</span>
                 </div>
             </article>
 
             <article class="feature-card reveal">
-                <div class="feature-icon">
+                <div class="feature-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
                     <i class="fas fa-terminal"></i>
                 </div>
-                <h3>SSH Management</h3>
-                <p>إدارة كاملة لحسابات SSH مع تحديد السرعة والمدة وعدد الاتصالات المتزامنة و Dropbear + Stunnel</p>
+                <h3>SSH + Dropbear</h3>
+                <p>Complete SSH account management with speed limiting, duration settings, concurrent connections, and Stunnel support</p>
                 <div class="feature-tags">
                     <span class="feature-tag">SSH</span>
                     <span class="feature-tag">Dropbear</span>
@@ -1536,11 +1576,11 @@
             </article>
 
             <article class="feature-card reveal">
-                <div class="feature-icon">
+                <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
                     <i class="fas fa-user-secret"></i>
                 </div>
-                <h3>ShadowsocksR</h3>
-                <p>دعم ShadowsocksR مع بروتوكولات متعددة وإخفاء حركة المرور بشكل فعال وأمان عالي</p>
+                <h3>ShadowsocksR + SSR</h3>
+                <p>ShadowsocksR support with multiple protocols, obfuscation methods, and AES-256 encryption for high anonymity</p>
                 <div class="feature-tags">
                     <span class="feature-tag">SSR</span>
                     <span class="feature-tag">Obfs</span>
@@ -1550,12 +1590,157 @@
         </div>
     </section>
 
+    <!-- Protocols Section - All 15+ protocols -->
+    <section class="section protocols-section" id="protocols">
+        <div class="section-header reveal">
+            <span class="section-tag">Complete Protocol Support</span>
+            <h2 class="section-title">All Protocols <span class="highlight">In One Place</span></h2>
+            <p class="section-desc">
+                15+ protocols and tunneling methods fully integrated and ready to use
+            </p>
+        </div>
+
+        <div class="protocols-grid">
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>SSH / Dropbear</h4>
+                    <p>Secure Shell with multi-port support</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>SSR / ShadowsocksR</h4>
+                    <p>Obfuscated proxy with high anonymity</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>L2TP / IPsec</h4>
+                    <p>Layer 2 Tunneling Protocol</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-key"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>PPTP</h4>
+                    <p>Point-to-Point Tunneling Protocol</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>SSTP</h4>
+                    <p>Secure Socket Tunneling Protocol</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>WSS / WebSocket Secure</h4>
+                    <p>Encrypted WebSocket with TLS</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-radar"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>XRAY Core</h4>
+                    <p>VLESS, VMess, Trojan, Shadowsocks</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-shield-virus"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>OpenVPN</h4>
+                    <p>Full-featured VPN solution</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>WireGuard</h4>
+                    <p>Modern high-performance VPN</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>UDP Custom</h4>
+                    <p>Custom UDP protocol with high speed</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>ZIVPN UDP</h4>
+                    <p>ZIVPN optimized UDP protocol</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+
+            <div class="protocol-card reveal">
+                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="protocol-info">
+                    <h4>SlowDNS</h4>
+                    <p>DNS tunneling for restricted networks</p>
+                </div>
+                <div class="protocol-status">Active</div>
+            </div>
+        </div>
+    </section>
+
     <section class="section install-section" id="install">
         <div class="section-header reveal">
-            <span class="section-tag">التثبيت خلال دقائق</span>
-            <h2 class="section-title">ابدأ في <span class="highlight">3 خطوات</span> فقط</h2>
+            <span class="section-tag">Install in Minutes</span>
+            <h2 class="section-title">Start in <span class="highlight">3 Easy Steps</span></h2>
             <p class="section-desc">
-                لا تحتاج لأي خبرة تقنية، فقط نسخ ولصق الأوامر
+                No technical experience needed - just copy and paste the commands
             </p>
         </div>
 
@@ -1569,16 +1754,19 @@
                         </div>
                         <button class="copy-btn" onclick="copyCode(this)">
                             <i class="fas fa-copy"></i>
-                            نسخ الأمر
+                            Copy Command
                         </button>
                     </div>
-                    <div class="code-content"><span class="comment"># التثبيت السريع (الطريقة الموصى بها)</span>
+                    <div class="code-content"><span class="comment"># Quick Installation (Recommended)</span>
 bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span>
 
-<span class="comment"># أو باستخدام wget</span>
+<span class="comment"># Or using wget</span>
 bash <span class="string">&lt;(wget -qO- https://vpsplus.dev/install.sh)</span>
 
-<span class="comment"># للتثبيت المباشر من GitHub</span>
+<span class="comment"># Install specific protocols only</span>
+bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span> --protocols=xray,wireguard,ssh
+
+<span class="comment"># Direct GitHub installation</span>
 git clone https://github.com/vpsplus/vpsplus-script.git &amp;&amp; cd vpsplus-script &amp;&amp; bash install.sh</div>
                 </div>
 
@@ -1586,22 +1774,22 @@ git clone https://github.com/vpsplus/vpsplus-script.git &amp;&amp; cd vpsplus-sc
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h4>تحديث النظام</h4>
-                            <p>تأكد من تحديث نظام <code>Ubuntu 20.04+</code> أو <code>Debian 11+</code> الخاص بك</p>
+                            <h4>Update Your System</h4>
+                            <p>Make sure your <code>Ubuntu 20.04+</code>, <code>Debian 11+</code>, or <code>CentOS 8+</code> system is up to date</p>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h4>تشغيل أمر التثبيت</h4>
-                            <p>انسخ الأمر أعلاه والصقه في الطرفية (SSH) ثم اضغط Enter</p>
+                            <h4>Run Installation Command</h4>
+                            <p>Copy the command above, paste it in your terminal (SSH), and press Enter</p>
                         </div>
                     </div>
                     <div class="step">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h4>الوصول للوحة التحكم</h4>
-                            <p>بعد اكتمال التثبيت، اكتب <code>vpsplus</code> أو <code>menu</code> للوصول للوحة التحكم</p>
+                            <h4>Access Control Panel</h4>
+                            <p>After completion, type <code>vpsplus</code> or <code>menu</code> to access the interactive dashboard</p>
                         </div>
                     </div>
                 </div>
@@ -1610,29 +1798,38 @@ git clone https://github.com/vpsplus/vpsplus-script.git &amp;&amp; cd vpsplus-sc
                     <div class="code-header">
                         <div class="code-lang">
                             <i class="fas fa-cog"></i>
-                            Commands
+                            Management Commands
                         </div>
                         <button class="copy-btn" onclick="copyCode(this)">
                             <i class="fas fa-copy"></i>
-                            نسخ الأوامر
+                            Copy Commands
                         </button>
                     </div>
-                    <div class="code-content"><span class="comment"># فتح لوحة التحكم الرئيسية</span>
+                    <div class="code-content"><span class="comment"># Open main control panel</span>
 vpsplus
 
-<span class="comment"># عرض حالة جميع الخدمات</span>
+<span class="comment"># Show all services status</span>
 vpsplus --status
 
-<span class="comment"># إضافة مستخدم SSH جديد</span>
+<span class="comment"># Add new SSH user</span>
 vpsplus --add-user
 
-<span class="comment"># إعدادات Xray (VLESS/VMess)</span>
+<span class="comment"># Setup Xray (VLESS/VMess/Trojan)</span>
 vpsplus --xray
 
-<span class="comment"># مراقبة الإحصائيات</span>
+<span class="comment"># Setup WireGuard VPN</span>
+vpsplus --wireguard
+
+<span class="comment"># Setup L2TP/IPsec</span>
+vpsplus --l2tp
+
+<span class="comment"># Setup OpenVPN</span>
+vpsplus --openvpn
+
+<span class="comment"># Monitor system resources</span>
 vpsplus --monitor
 
-<span class="comment"># تحديث السكريبت لأحدث إصدار</span>
+<span class="comment"># Update script to latest version</span>
 vpsplus --update</div>
                 </div>
             </div>
@@ -1641,45 +1838,47 @@ vpsplus --update</div>
 
     <section class="section download-section" id="download">
         <div class="section-header reveal">
-            <span class="section-tag">مجاني 100%</span>
-            <h2 class="section-title">اختر <span class="highlight">حريتك</span></h2>
+            <span class="section-tag">100% Free</span>
+            <h2 class="section-title">Choose <span class="highlight">Your Freedom</span></h2>
             <p class="section-desc">
-                VPSPLUS متاح مجاناً للأبد مع تحديثات ودعم مستمر
+                VPSPLUS is completely free forever with continuous updates and support
             </p>
         </div>
 
         <div class="download-card popular reveal">
-            <div class="popular-badge">✨ الأكثر تحميلاً ✨</div>
+            <div class="popular-badge">✨ Most Popular ✨</div>
             <div class="download-icon">
                 <i class="fas fa-gem"></i>
             </div>
             <h3>VPSPLUS ULTIMATE</h3>
             <div class="price">
-                مجاناً <span>للأبد</span>
+                FREE <span>Forever</span>
             </div>
             <ul class="features-list">
-                <li><i class="fas fa-check-circle"></i> جميع البروتوكولات: UDP, WS, Xray, VPN, SSH, SSR</li>
-                <li><i class="fas fa-check-circle"></i> لوحة تحكم تفاعلية Full-Color</li>
-                <li><i class="fas fa-check-circle"></i> إدارة مستخدمين غير محدودة</li>
-                <li><i class="fas fa-check-circle"></i> مراقبة فورية للموارد</li>
-                <li><i class="fas fa-check-circle"></i> تحديثات أوتوماتيكية</li>
-                <li><i class="fas fa-check-circle"></i> دعم Ubuntu/Debian/CentOS/Almalinux</li>
-                <li><i class="fas fa-check-circle"></i> دعم فني 24/7 عبر التيليجرام</li>
-                <li><i class="fas fa-check-circle"></i> نسخ احتياطي واستعادة</li>
+                <li><i class="fas fa-check-circle"></i> 15+ Protocols: SSH, SSR, L2TP, PPTP, SSTP, WSS, XRAY, OpenVPN, WireGuard, UDP Custom, ZIVPN UDP, SlowDNS</li>
+                <li><i class="fas fa-check-circle"></i> Full-Color Interactive Control Panel</li>
+                <li><i class="fas fa-check-circle"></i> Unlimited User Management</li>
+                <li><i class="fas fa-check-circle"></i> Real-time Resource Monitoring</li>
+                <li><i class="fas fa-check-circle"></i> Automatic Updates</li>
+                <li><i class="fas fa-check-circle"></i> Supports Ubuntu/Debian/CentOS/Almalinux</li>
+                <li><i class="fas fa-check-circle"></i> 24/7 Technical Support via Telegram</li>
+                <li><i class="fas fa-check-circle"></i> Backup & Restore System</li>
+                <li><i class="fas fa-check-circle"></i> Bandwidth Limiting per User</li>
+                <li><i class="fas fa-check-circle"></i> Expiry Date Management</li>
             </ul>
             <a href="#install" class="btn btn-primary btn-shine" style="width: 100%; justify-content: center;">
                 <i class="fas fa-download"></i>
-                ابدأ التثبيت الآن
+                Install Now
             </a>
         </div>
     </section>
 
     <section class="section" id="community">
         <div class="section-header reveal">
-            <span class="section-tag">انضم إلينا</span>
-            <h2 class="section-title">كن جزءاً من <span class="highlight">المجتمع</span></h2>
+            <span class="section-tag">Join Our Community</span>
+            <h2 class="section-title">Be Part of <span class="highlight">The Family</span></h2>
             <p class="section-desc">
-                تواصل مع آلاف المستخدمين والمطورين
+                Connect with thousands of users and developers
             </p>
         </div>
 
@@ -1688,11 +1887,11 @@ vpsplus --update</div>
                 <div class="community-icon" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.05)); color: var(--primary);">
                     <i class="fab fa-telegram"></i>
                 </div>
-                <h4>قناة التيليجرام</h4>
-                <p>أحدث التحديثات والإعلانات والنسخ الجديدة أول بأول</p>
+                <h4>Telegram Channel</h4>
+                <p>Latest updates, announcements, and new releases first-hand</p>
                 <a href="#" class="community-link" onclick="showComingSoon(event)">
-                    انضم الآن
-                    <i class="fas fa-arrow-left"></i>
+                    Join Now
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
@@ -1700,11 +1899,11 @@ vpsplus --update</div>
                 <div class="community-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); color: var(--success);">
                     <i class="fab fa-whatsapp"></i>
                 </div>
-                <h4>مجموعة الواتساب</h4>
-                <p>دعم فني مباشر ومساعدة فورية من المجتمع</p>
+                <h4>WhatsApp Group</h4>
+                <p>Direct technical support and immediate help from the community</p>
                 <a href="#" class="community-link" onclick="showComingSoon(event)">
-                    انضم للمجموعة
-                    <i class="fas fa-arrow-left"></i>
+                    Join Group
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
 
@@ -1712,11 +1911,11 @@ vpsplus --update</div>
                 <div class="community-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05)); color: var(--accent);">
                     <i class="fab fa-github"></i>
                 </div>
-                <h4>GitHub</h4>
-                <p>استعرض الكود المصدري وساهم في التطوير</p>
+                <h4>GitHub Repository</h4>
+                <p>Browse source code, contribute to development, and report issues</p>
                 <a href="#" class="community-link" onclick="showComingSoon(event)">
-                    زيارة المستودع
-                    <i class="fas fa-arrow-left"></i>
+                    Visit Repo
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </article>
         </div>
@@ -1730,41 +1929,43 @@ vpsplus --update</div>
                     VPSPLUS
                 </a>
                 <p>
-                    VPSPLOS هو السكريبت الأشهر في العالم العربي لإدارة الخوادم السحابية، يجمع بين القوة والسهولة مع دمج أحدث التقنيات.
+                    VPSPLUS is the most popular script in the world for VPS server management, combining power and ease of use with the latest technologies.
                 </p>
             </div>
             <div class="footer-links">
-                <h4>روابط سريعة</h4>
+                <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#features">المميزات</a></li>
-                    <li><a href="#install">طريقة التثبيت</a></li>
-                    <li><a href="#download">التحميل</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#protocols">Protocols</a></li>
+                    <li><a href="#install">Installation</a></li>
+                    <li><a href="#download">Download</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>البروتوكولات</h4>
+                <h4>Protocols</h4>
                 <ul>
-                    <li><a href="#features">UDP Custom</a></li>
-                    <li><a href="#features">WebSocket</a></li>
-                    <li><a href="#features">Xray Core</a></li>
-                    <li><a href="#features">OpenVPN</a></li>
-                    <li><a href="#features">SSH</a></li>
-                    <li><a href="#features">SSR</a></li>
+                    <li><a href="#protocols">SSH / Dropbear</a></li>
+                    <li><a href="#protocols">SSR / ShadowsocksR</a></li>
+                    <li><a href="#protocols">L2TP / PPTP / SSTP</a></li>
+                    <li><a href="#protocols">XRAY Core</a></li>
+                    <li><a href="#protocols">OpenVPN / WireGuard</a></li>
+                    <li><a href="#protocols">UDP Custom / ZIVPN</a></li>
+                    <li><a href="#protocols">SlowDNS / WSS</a></li>
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>الدعم</h4>
+                <h4>Support</h4>
                 <ul>
-                    <li><a href="#" onclick="showComingSoon(event)">التوثيق الرسمي</a></li>
-                    <li><a href="#" onclick="showComingSoon(event)">الأسئلة الشائعة</a></li>
-                    <li><a href="#" onclick="showComingSoon(event)">طلب مساعدة</a></li>
-                    <li><a href="#" onclick="showComingSoon(event)">اقتراح ميزة</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">Documentation</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">FAQ</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">Report Issue</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">Feature Request</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 VPSPLUS - جميع الحقوق محفوظة</p>
+            <p>© 2026 VPSPLUS - All Rights Reserved</p>
             <div class="social-links">
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-telegram"></i></a>
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-github"></i></a>
@@ -1935,18 +2136,25 @@ vpsplus --update</div>
         function animateCounter(element, target) {
             let current = 0;
             const duration = 2000;
-            const increment = target / (duration / 16);
             const startTime = performance.now();
             function update(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 const easeOut = 1 - Math.pow(1 - progress, 3);
                 current = Math.floor(target * easeOut);
-                element.textContent = current.toLocaleString();
+                if (target === 99.99) {
+                    element.textContent = current.toFixed(2);
+                } else {
+                    element.textContent = current.toLocaleString();
+                }
                 if (progress < 1) {
                     requestAnimationFrame(update);
                 } else {
-                    element.textContent = target.toLocaleString();
+                    if (target === 99.99) {
+                        element.textContent = '99.99';
+                    } else {
+                        element.textContent = target.toLocaleString();
+                    }
                 }
             }
             requestAnimationFrame(update);
@@ -1959,14 +2167,14 @@ vpsplus --update</div>
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = btn.innerHTML;
                 btn.classList.add('copied');
-                btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied';
                 setTimeout(() => {
                     btn.classList.remove('copied');
                     btn.innerHTML = originalText;
                 }, 2000);
-                showToast('تم نسخ الأمر بنجاح', 'fa-check-circle');
+                showToast('Command copied successfully', 'fa-check-circle');
             }).catch(() => {
-                showToast('حدث خطأ، حاول مرة أخرى', 'fa-exclamation-circle');
+                showToast('Failed to copy, please try again', 'fa-exclamation-circle');
             });
         }
 
@@ -1981,7 +2189,7 @@ vpsplus --update</div>
 
         function showComingSoon(e) {
             e.preventDefault();
-            showToast('قريباً جداً... تابعنا على التيليجرام', 'fa-clock');
+            showToast('Coming soon... Follow us on Telegram', 'fa-clock');
         }
 
         // Active nav highlight
@@ -2003,4 +2211,4 @@ vpsplus --update</div>
         });
     </script>
 </body>
-    </html>
+</html>
