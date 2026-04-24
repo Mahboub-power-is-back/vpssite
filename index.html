@@ -29,6 +29,7 @@
             --danger: #ef4444;
             --multipass: #ff6b6b;
             --multipass-glow: rgba(255, 107, 107, 0.4);
+            --multipass-dark: #ee5a24;
             --bg-dark: #0a0a1a;
             --bg-darker: #05050f;
             --bg-card: rgba(15, 22, 35, 0.8);
@@ -962,6 +963,104 @@
             min-width: 20px;
         }
 
+        /* Telegram Photo Section */
+        .telegram-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 107, 107, 0.05));
+            border-radius: var(--radius-xl);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .telegram-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .telegram-photo {
+            flex-shrink: 0;
+        }
+
+        .telegram-photo-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            transition: all var(--transition-base);
+        }
+
+        .telegram-photo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+        }
+
+        .telegram-info {
+            text-align: center;
+        }
+
+        .telegram-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-multipass);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .telegram-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .telegram-btn {
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all var(--transition-base);
+            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3);
+        }
+
+        .telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 136, 204, 0.4);
+            gap: 1rem;
+        }
+
+        .telegram-btn i {
+            font-size: 1.3rem;
+        }
+
+        /* MultiPlus Logo Style */
+        .multipass-logo {
+            background: var(--gradient-multipass);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .port-highlight {
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid #ff6b6b;
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #ff6b6b;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
         .community-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1220,18 +1319,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        .port-highlight {
-            background: rgba(0, 212, 255, 0.15);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            padding: 0.3rem 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--primary);
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
         @media (max-width: 992px) {
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
@@ -1242,6 +1329,10 @@
             }
             .downloads-grid {
                 grid-template-columns: 1fr;
+            }
+            .telegram-content {
+                flex-direction: column;
+                gap: 1.5rem;
             }
         }
 
@@ -1372,7 +1463,7 @@
                 Choose between VPSPLUS for all protocols or MULTIPLUS for optimized SSH & Xray on ports 80/443
             </p>
             <div class="hero-buttons">
-                <a href="#install" class="btn btn-primary btn-shine">
+                <a href="#install" class="btn btn-primary">
                     <i class="fas fa-rocket"></i>
                     Install VPSPLUS
                 </a>
@@ -1626,33 +1717,6 @@
                     </div>
                 </article>
             </div>
-
-            <!-- MULTIPLUS Advantages Banner -->
-            <div class="install-card" style="margin-top: 2rem; background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(0,0,0,0.2)); border-color: rgba(255,107,107,0.3);">
-                <div style="text-align: center;">
-                    <h3 style="color: #ff6b6b; margin-bottom: 1rem;">
-                        <i class="fas fa-star"></i> Why MULTIPLUS?
-                    </h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
-                        <div>
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                            <span>Bypass Firewalls</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                            <span>Work on Restricted Networks</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                            <span>Perfect for CDN</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                            <span>Undetectable Traffic</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1881,10 +1945,7 @@ bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</spa
 bash <span class="string">&lt;(wget -qO- https://multiplus.dev/install.sh)</span>
 
 <span class="comment"># Install with custom domain for TLS</span>
-bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --domain=your-domain.com
-
-<span class="comment"># Quick setup with automatic configuration</span>
-bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --auto --email=admin@example.com</div>
+bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --domain=your-domain.com</div>
             </div>
 
             <div class="install-steps">
@@ -1945,11 +2006,6 @@ multipass --monitor
 
 <span class="comment"># Update MULTIPLUS</span>
 multipass --update</div>
-            </div>
-
-            <div style="background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); border-radius: var(--radius-md); padding: 1rem; margin-top: 1.5rem;">
-                <i class="fas fa-info-circle" style="color: #ff6b6b;"></i>
-                <strong>Note:</strong> MULTIPLUS optimizes SSH and Xray to run on ports 80 and 443, making your traffic look like regular web traffic and bypassing most firewalls and restrictions.
             </div>
         </div>
     </section>
@@ -2018,6 +2074,24 @@ multipass --update</div>
                 </button>
             </div>
         </div>
+
+        <!-- Telegram Section with Photo -->
+        <div class="telegram-section reveal">
+            <div class="telegram-content">
+                <div class="telegram-photo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%231a2332'/%3E%3Ccircle cx='100' cy='100' r='80' fill='url(%23grad)'/%3E%3Ctext x='100' y='115' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3EMP%3C/text%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ee5a24'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E" alt="MULTIPLUS Logo" class="telegram-photo-img">
+                </div>
+                <div class="telegram-info">
+                    <h3><i class="fab fa-telegram"></i> MULTIPLUS Telegram Channel</h3>
+                    <p>Join our Telegram channel for latest updates, support, and news about MULTIPLUS script</p>
+                    <a href="https://t.me/VPSPLUSMODE" target="_blank" class="telegram-btn">
+                        <i class="fab fa-telegram"></i>
+                        Join MULTIPLUS Channel
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="section" id="community">
@@ -2034,9 +2108,9 @@ multipass --update</div>
                 <div class="community-icon" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.05)); color: var(--primary);">
                     <i class="fab fa-telegram"></i>
                 </div>
-                <h4>Telegram Channel</h4>
+                <h4>VPSPLUS Telegram</h4>
                 <p>Latest updates, announcements, and new releases first-hand</p>
-                <a href="#" class="community-link" onclick="showComingSoon(event)">
+                <a href="https://t.me/VPSPLUSMODE" target="_blank" class="community-link">
                     Join Now
                     <i class="fas fa-arrow-right"></i>
                 </a>
@@ -2109,7 +2183,7 @@ multipass --update</div>
         <div class="footer-bottom">
             <p>© 2026 VPSPLUS & MULTIPLUS - All Rights Reserved</p>
             <div class="social-links">
-                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-telegram"></i></a>
+                <a href="https://t.me/VPSPLUSMODE" target="_blank"><i class="fab fa-telegram"></i></a>
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-github"></i></a>
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-x-twitter"></i></a>
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-youtube"></i></a>
@@ -2253,7 +2327,6 @@ multipass --update</div>
 
         // Script Selection Function
         function selectScript(script) {
-            // Update tabs
             document.querySelectorAll('.script-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -2263,7 +2336,6 @@ multipass --update</div>
                 document.querySelector('.script-tab.multipass').classList.add('active');
             }
             
-            // Update panels
             document.getElementById('vpsplusPanel').classList.remove('active');
             document.getElementById('multipassPanel').classList.remove('active');
             if (script === 'vpsplus') {
@@ -2272,7 +2344,6 @@ multipass --update</div>
                 document.getElementById('multipassPanel').classList.add('active');
             }
             
-            // Update install sections
             document.getElementById('vpsplusInstall').style.display = script === 'vpsplus' ? 'block' : 'none';
             document.getElementById('multipassInstall').style.display = script === 'multipass' ? 'block' : 'none';
         }
