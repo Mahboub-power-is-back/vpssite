@@ -15,7 +15,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
+        /* Previous styles remain the same */
         :root {
             --primary: #00d4ff;
             --primary-dark: #0099cc;
@@ -30,6 +33,8 @@
             --multipass: #ff6b6b;
             --multipass-glow: rgba(255, 107, 107, 0.4);
             --multipass-dark: #ee5a24;
+            --binance: #f0b90b;
+            --binance-dark: #d4a00a;
             --bg-dark: #0a0a1a;
             --bg-darker: #05050f;
             --bg-card: rgba(15, 22, 35, 0.8);
@@ -46,6 +51,7 @@
             --gradient-3: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
             --gradient-4: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-multipass: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff4757 100%);
+            --gradient-binance: linear-gradient(135deg, #f0b90b 0%, #f8d12f 100%);
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
             --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
             --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
@@ -62,6 +68,7 @@
             --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Keep all previous styles... */
         * {
             margin: 0;
             padding: 0;
@@ -347,6 +354,254 @@
             transform: translateY(-3px);
         }
 
+        /* Payment Section Styles */
+        .payment-section {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+            border-radius: var(--radius-xl);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .payment-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-binance);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .payment-header p {
+            color: var(--text-secondary);
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .payment-card {
+            background: var(--bg-card-solid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--binance);
+            box-shadow: 0 0 30px rgba(240, 185, 11, 0.2);
+        }
+
+        .payment-card.selected {
+            border-color: var(--binance);
+            background: rgba(240, 185, 11, 0.1);
+            box-shadow: 0 0 40px rgba(240, 185, 11, 0.3);
+        }
+
+        .payment-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.2rem;
+            color: var(--binance);
+            font-weight: bold;
+        }
+
+        .payment-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--binance);
+            margin: 0.5rem 0;
+        }
+
+        .payment-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .payment-details {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(240, 185, 11, 0.05);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(240, 185, 11, 0.2);
+            display: none;
+        }
+
+        .payment-details.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .binance-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .qr-container {
+            text-align: center;
+        }
+
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .wallet-address {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .copy-wallet-btn {
+            background: rgba(240, 185, 11, 0.2);
+            border: 1px solid var(--binance);
+            color: var(--binance);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .copy-wallet-btn:hover {
+            background: var(--binance);
+            color: black;
+        }
+
+        .payment-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .payment-status.waiting {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent);
+        }
+
+        .payment-status.confirmed {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .payment-status.failed {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .verify-payment-btn {
+            background: var(--gradient-binance);
+            color: black;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: 1rem;
+        }
+
+        .verify-payment-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(240, 185, 11, 0.4);
+        }
+
+        /* Script Display After Payment */
+        .script-display {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--success);
+            display: none;
+        }
+
+        .script-display.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .script-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .script-header i {
+            font-size: 3rem;
+            color: var(--success);
+        }
+
+        .script-header h3 {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .script-content {
+            background: var(--bg-darker);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .code-block {
+            background: rgba(10, 15, 26, 0.9);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .script-note {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Other styles remain the same as previous */
         .terminal-window {
             margin-top: 4rem;
             background: rgba(15, 22, 35, 0.9);
@@ -510,56 +765,6 @@
             font-size: 1.05rem;
         }
 
-        /* Script Selector Tabs */
-        .script-selector {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .script-tab {
-            padding: 1rem 2.5rem;
-            border-radius: var(--radius-md);
-            font-weight: 800;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        .script-tab.vpsplus.active {
-            background: var(--gradient-1);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .script-tab.multipass.active {
-            background: var(--gradient-multipass);
-            color: white;
-            border-color: #ff6b6b;
-            box-shadow: var(--shadow-multipass);
-        }
-
-        .script-tab:hover:not(.active) {
-            transform: translateY(-2px);
-            border-color: var(--border-light);
-            background: rgba(0, 212, 255, 0.05);
-        }
-
-        .script-panel {
-            display: none;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .script-panel.active {
-            display: block;
-        }
-
-        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -644,7 +849,6 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Protocol Cards */
         .protocols-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -697,432 +901,6 @@
             border-radius: 20px;
             background: rgba(16, 185, 129, 0.2);
             color: var(--success);
-        }
-
-        /* Install Section */
-        .install-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-xl);
-            padding: 2.5rem;
-            max-width: 900px;
-            margin: 0 auto;
-            transition: all var(--transition-base);
-        }
-
-        .install-card:hover {
-            border-color: var(--border-light);
-            box-shadow: var(--shadow-glow-strong);
-        }
-
-        .code-block {
-            background: rgba(10, 15, 26, 0.9);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .code-lang {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .copy-btn {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-            padding: 0.5rem 1.2rem;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            transition: all var(--transition-fast);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .copy-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .copy-btn.copied {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: var(--success);
-            color: var(--success);
-        }
-
-        .code-content {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #c9d1d9;
-            line-height: 1.8;
-            text-align: left;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-        }
-
-        .code-content .comment { color: #6b7280; }
-        .code-content .string { color: #a5d6ff; }
-        .code-content .prompt { color: var(--success); font-weight: 700; }
-
-        .install-steps {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .step {
-            display: flex;
-            gap: 1rem;
-            padding: 1.2rem;
-            background: rgba(255,255,255,0.02);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            transition: all var(--transition-base);
-        }
-
-        .step:hover {
-            background: rgba(0, 212, 255, 0.05);
-            border-color: var(--border-light);
-        }
-
-        .step-number {
-            width: 45px;
-            height: 45px;
-            min-width: 45px;
-            border-radius: var(--radius-md);
-            background: var(--gradient-1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.1rem;
-            color: white;
-        }
-
-        .step-content h4 {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            font-weight: 800;
-        }
-
-        .step-content p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .step-content code {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--primary);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-        }
-
-        /* Download Cards */
-        .downloads-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .download-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 2px solid var(--border);
-            border-radius: var(--radius-xl);
-            padding: 2.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all var(--transition-base);
-        }
-
-        .download-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .download-card.vpsplus:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-glow-strong);
-        }
-
-        .download-card.multipass:hover {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 60px rgba(255, 107, 107, 0.3);
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-1);
-            color: white;
-            padding: 0.5rem 2rem;
-            border-radius: 0 0 16px 16px;
-            font-weight: 800;
-            font-size: 0.85rem;
-        }
-
-        .download-card.multipass .popular-badge {
-            background: var(--gradient-multipass);
-        }
-
-        .download-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .download-card.vpsplus .download-icon {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .download-card.multipass .download-icon {
-            background: var(--gradient-multipass);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .download-card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-            font-weight: 900;
-        }
-
-        .download-card .price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin: 1rem 0;
-        }
-
-        .download-card.vpsplus .price {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .download-card.multipass .price {
-            background: var(--gradient-multipass);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .price span {
-            font-size: 0.9rem;
-            -webkit-text-fill-color: var(--text-secondary);
-        }
-
-        .features-list {
-            list-style: none;
-            text-align: left;
-            margin: 1.5rem 0;
-            padding: 0;
-        }
-
-        .features-list li {
-            padding: 0.7rem 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .features-list li i {
-            color: var(--success);
-            font-size: 1rem;
-            min-width: 20px;
-        }
-
-        /* Telegram Photo Section */
-        .telegram-section {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 107, 107, 0.05));
-            border-radius: var(--radius-xl);
-            padding: 3rem 2rem;
-            margin-top: 3rem;
-            text-align: center;
-            border: 1px solid rgba(255, 107, 107, 0.2);
-        }
-
-        .telegram-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .telegram-photo {
-            flex-shrink: 0;
-        }
-
-        .telegram-photo-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            transition: all var(--transition-base);
-        }
-
-        .telegram-photo-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
-        }
-
-        .telegram-info {
-            text-align: center;
-        }
-
-        .telegram-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            background: var(--gradient-multipass);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .telegram-info p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .telegram-btn {
-            background: linear-gradient(135deg, #0088cc, #006699);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all var(--transition-base);
-            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3);
-        }
-
-        .telegram-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 136, 204, 0.4);
-            gap: 1rem;
-        }
-
-        .telegram-btn i {
-            font-size: 1.3rem;
-        }
-
-        /* MultiPlus Logo Style */
-        .multipass-logo {
-            background: var(--gradient-multipass);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .port-highlight {
-            background: rgba(255, 107, 107, 0.15);
-            border: 1px solid #ff6b6b;
-            border-radius: 20px;
-            padding: 0.3rem 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #ff6b6b;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
-        .community-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .community-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-xl);
-            padding: 2rem;
-            text-align: center;
-            transition: all var(--transition-base);
-        }
-
-        .community-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--border-light);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .community-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 1.5rem;
-        }
-
-        .community-card h4 {
-            font-size: 1.15rem;
-            margin-bottom: 0.6rem;
-            font-weight: 800;
-        }
-
-        .community-card p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .community-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all var(--transition-fast);
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-        }
-
-        .community-link:hover {
-            gap: 0.8rem;
-            background: rgba(0, 212, 255, 0.1);
         }
 
         .footer {
@@ -1222,6 +1000,43 @@
             background: var(--gradient-1);
             color: white;
             transform: translateY(-3px) scale(1.1);
+        }
+
+        .telegram-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(255, 107, 107, 0.05));
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .telegram-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .telegram-photo-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .telegram-btn {
+            background: linear-gradient(135deg, #0088cc, #006699);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         @keyframes fadeInUp {
@@ -1327,13 +1142,6 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
-            .downloads-grid {
-                grid-template-columns: 1fr;
-            }
-            .telegram-content {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1391,16 +1199,6 @@
                 justify-content: center;
             }
 
-            .install-card {
-                padding: 1.5rem;
-            }
-
-            .step {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
             .features-grid {
                 grid-template-columns: 1fr;
             }
@@ -1408,16 +1206,9 @@
             .protocols-grid {
                 grid-template-columns: 1fr;
             }
-
-            .script-selector {
-                flex-direction: column;
-                align-items: center;
-            }
             
-            .script-tab {
-                width: 100%;
-                max-width: 250px;
-                text-align: center;
+            .payment-options {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1440,8 +1231,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#protocols">Protocols</a></li>
-            <li><a href="#install">Install</a></li>
-            <li><a href="#download">Download</a></li>
+            <li><a href="#payment">Get Script</a></li>
             <li><a href="#community">Community</a></li>
         </ul>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -1463,13 +1253,13 @@
                 Choose between VPSPLUS for all protocols or MULTIPLUS for optimized SSH & Xray on ports 80/443
             </p>
             <div class="hero-buttons">
-                <a href="#install" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i>
-                    Install VPSPLUS
+                <a href="#payment" class="btn btn-primary">
+                    <i class="fab fa-binance"></i>
+                    Get VPSPLUS
                 </a>
-                <a href="#install" class="btn btn-multipass" onclick="switchToMultipass()">
-                    <i class="fas fa-layer-group"></i>
-                    Try MULTIPLUS
+                <a href="#payment" class="btn btn-multipass">
+                    <i class="fab fa-binance"></i>
+                    Get MULTIPLUS
                 </a>
             </div>
 
@@ -1534,189 +1324,85 @@
 
     <section class="section" id="features">
         <div class="section-header reveal">
-            <span class="section-tag">Choose Your Script</span>
-            <h2 class="section-title">Two Solutions, <span class="highlight">One Goal</span></h2>
+            <span class="section-tag">Powerful Features</span>
+            <h2 class="section-title">Complete <span class="highlight">VPS Management</span></h2>
             <p class="section-desc">
-                Select the perfect script for your needs
+                All the tools you need to manage your VPS efficiently
             </p>
         </div>
 
-        <!-- Script Selector Tabs -->
-        <div class="script-selector">
-            <div class="script-tab vpsplus active" onclick="selectScript('vpsplus')">
-                <i class="fas fa-server"></i> VPSPLUS - All Protocols
-            </div>
-            <div class="script-tab multipass" onclick="selectScript('multipass')">
-                <i class="fas fa-exchange-alt"></i> MULTIPLUS - Port 80/443
-            </div>
-        </div>
+        <div class="features-grid">
+            <article class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+                <h3>UDP Custom</h3>
+                <p>Complete UDP protocol support with custom settings for optimal performance</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">UDP</span>
+                    <span class="feature-tag">Custom</span>
+                </div>
+            </article>
 
-        <!-- VPSPLUS Panel -->
-        <div class="script-panel active" id="vpsplusPanel">
-            <div class="features-grid">
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
-                        <i class="fas fa-broadcast-tower"></i>
-                    </div>
-                    <h3>UDP Custom</h3>
-                    <p>Complete UDP protocol support with custom settings for optimal performance</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">UDP</span>
-                        <span class="feature-tag">Custom</span>
-                    </div>
-                </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(124, 58, 237, 0.1); color: var(--secondary);">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>WebSocket + WSS</h3>
+                <p>Secure WebSocket connections with full TLS 1.3 and CDN compatibility</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">WSS</span>
+                    <span class="feature-tag">TLS 1.3</span>
+                </div>
+            </article>
 
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(124, 58, 237, 0.1); color: var(--secondary);">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <h3>WebSocket + WSS</h3>
-                    <p>Secure WebSocket connections with full TLS 1.3 and CDN compatibility</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">WSS</span>
-                        <span class="feature-tag">TLS 1.3</span>
-                    </div>
-                </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Xray Core + XTLS</h3>
+                <p>Latest Xray core with VLESS, VMess, Trojan, and Shadowsocks support</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">VLESS</span>
+                    <span class="feature-tag">XTLS</span>
+                </div>
+            </article>
 
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent);">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Xray Core + XTLS</h3>
-                    <p>Latest Xray core with VLESS, VMess, Trojan, and Shadowsocks support</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">VLESS</span>
-                        <span class="feature-tag">XTLS</span>
-                    </div>
-                </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>WireGuard + OpenVPN</h3>
+                <p>Modern VPN protocols with high performance and strong encryption</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">WireGuard</span>
+                    <span class="feature-tag">OpenVPN</span>
+                </div>
+            </article>
 
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3>WireGuard + OpenVPN</h3>
-                    <p>Modern VPN protocols with high performance and strong encryption</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">WireGuard</span>
-                        <span class="feature-tag">OpenVPN</span>
-                    </div>
-                </article>
+            <article class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <h3>SSH + Dropbear</h3>
+                <p>Complete SSH account management with speed limiting and concurrent connections</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">SSH</span>
+                    <span class="feature-tag">Dropbear</span>
+                </div>
+            </article>
 
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
-                        <i class="fas fa-terminal"></i>
-                    </div>
-                    <h3>SSH + Dropbear</h3>
-                    <p>Complete SSH account management with speed limiting and concurrent connections</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">SSH</span>
-                        <span class="feature-tag">Dropbear</span>
-                    </div>
-                </article>
-
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
-                        <i class="fas fa-user-secret"></i>
-                    </div>
-                    <h3>ShadowsocksR + L2TP</h3>
-                    <p>SSR with obfuscation plus L2TP/IPsec for legacy device support</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">SSR</span>
-                        <span class="feature-tag">L2TP</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-
-        <!-- MULTIPLUS Panel -->
-        <div class="script-panel" id="multipassPanel">
-            <div class="features-grid">
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
-                        <i class="fas fa-plug"></i>
-                    </div>
-                    <h3>SSH on Port 80 & 443</h3>
-                    <p>SSH tunneling optimized for ports 80 and 443 to bypass network restrictions and firewalls</p>
-                    <div class="port-highlight">
-                        <i class="fas fa-network-wired"></i> Port 80 (HTTP) | Port 443 (HTTPS)
-                    </div>
-                    <div class="feature-tags">
-                        <span class="feature-tag">SSH</span>
-                        <span class="feature-tag">Port 80</span>
-                        <span class="feature-tag">Port 443</span>
-                        <span class="feature-tag">Firewall Bypass</span>
-                    </div>
-                </article>
-
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
-                        <i class="fas fa-shield-virus"></i>
-                    </div>
-                    <h3>Xray on Port 80 & 443</h3>
-                    <p>Xray core (VLESS/VMess/Trojan) optimized for ports 80 and 443 - perfect for restricted networks</p>
-                    <div class="port-highlight">
-                        <i class="fas fa-network-wired"></i> Port 80 (HTTP) | Port 443 (HTTPS) + TLS
-                    </div>
-                    <div class="feature-tags">
-                        <span class="feature-tag">XRAY</span>
-                        <span class="feature-tag">VLESS</span>
-                        <span class="feature-tag">Port 80/443</span>
-                        <span class="feature-tag">TLS</span>
-                    </div>
-                </article>
-
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                    </div>
-                    <h3>CDN & Cloudflare Ready</h3>
-                    <p>Fully compatible with Cloudflare CDN and other reverse proxies on ports 80/443</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">CDN</span>
-                        <span class="feature-tag">Cloudflare</span>
-                        <span class="feature-tag">Reverse Proxy</span>
-                    </div>
-                </article>
-
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Traffic Obfuscation</h3>
-                    <p>Smart traffic masking making your SSH and Xray traffic look like regular HTTPS traffic</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">Obfuscation</span>
-                        <span class="feature-tag">HTTPS Mimic</span>
-                        <span class="feature-tag">Stealth</span>
-                    </div>
-                </article>
-
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <h3>High Performance</h3>
-                    <p>Optimized configurations for maximum speed and stability on standard web ports</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">Low Latency</span>
-                        <span class="feature-tag">High Speed</span>
-                        <span class="feature-tag">Stable</span>
-                    </div>
-                </article>
-
-                <article class="feature-card reveal">
-                    <div class="feature-icon" style="background: rgba(255, 107, 107, 0.1); color: #ff6b6b;">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Easy Management</h3>
-                    <p>Simple command-line interface to manage users, monitor traffic, and configure settings</p>
-                    <div class="feature-tags">
-                        <span class="feature-tag">User Management</span>
-                        <span class="feature-tag">Traffic Monitor</span>
-                        <span class="feature-tag">Auto Config</span>
-                    </div>
-                </article>
-            </div>
+            <article class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <h3>ShadowsocksR + L2TP</h3>
+                <p>SSR with obfuscation plus L2TP/IPsec for legacy device support</p>
+                <div class="feature-tags">
+                    <span class="feature-tag">SSR</span>
+                    <span class="feature-tag">L2TP</span>
+                </div>
+            </article>
         </div>
     </section>
 
@@ -1861,234 +1547,109 @@
                 </div>
                 <div class="protocol-status">Active</div>
             </div>
-
-            <div class="protocol-card reveal">
-                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
-                    <i class="fas fa-wifi"></i>
-                </div>
-                <div class="protocol-info">
-                    <h4>ZIVPN UDP</h4>
-                    <p>ZIVPN optimized UDP protocol</p>
-                </div>
-                <div class="protocol-status">Active</div>
-            </div>
-
-            <div class="protocol-card reveal">
-                <div class="protocol-icon" style="background: rgba(0, 212, 255, 0.1); color: var(--primary);">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                <div class="protocol-info">
-                    <h4>SlowDNS</h4>
-                    <p>DNS tunneling for restricted networks</p>
-                </div>
-                <div class="protocol-status">Active</div>
-            </div>
         </div>
     </section>
 
-    <section class="section install-section" id="install">
+    <!-- Payment Section -->
+    <section class="section" id="payment">
         <div class="section-header reveal">
-            <span class="section-tag">Install in Minutes</span>
-            <h2 class="section-title">Start in <span class="highlight">3 Easy Steps</span></h2>
+            <span class="section-tag">Secure Payment</span>
+            <h2 class="section-title">Get Your <span class="highlight">Script</span></h2>
             <p class="section-desc">
-                No technical experience needed - just copy and paste the commands
+                Complete your payment via Binance and get instant access
             </p>
         </div>
 
-        <!-- VPSPLUS Install -->
-        <div class="install-card" id="vpsplusInstall">
-            <h3 style="text-align: center; margin-bottom: 1.5rem;">
-                <i class="fas fa-server" style="color: var(--primary);"></i> VPSPLUS Installation
-            </h3>
-            <div class="code-block">
-                <div class="code-header">
-                    <div class="code-lang">
-                        <i class="fas fa-terminal"></i>
-                        Bash Script
+        <div class="payment-section reveal">
+            <div class="payment-header">
+                <h3><i class="fab fa-binance"></i> Binance Pay</h3>
+                <p>Choose your script and complete payment securely</p>
+            </div>
+
+            <div class="payment-options">
+                <div class="payment-card" onclick="selectPayment('vpsplus', 29.99)">
+                    <div class="payment-icon">
+                        <i class="fas fa-server"></i>
                     </div>
-                    <button class="copy-btn" onclick="copyCode(this, 'vpsplus')">
-                        <i class="fas fa-copy"></i>
-                        Copy Command
+                    <h4>VPSPLUS Ultimate</h4>
+                    <div class="price">$29.99 <span>USD</span></div>
+                    <p>All protocols + Full features + Lifetime updates</p>
+                    <div class="feature-tags" style="justify-content: center; margin-top: 0.5rem;">
+                        <span class="feature-tag">15+ Protocols</span>
+                        <span class="feature-tag">Lifetime</span>
+                    </div>
+                </div>
+
+                <div class="payment-card" onclick="selectPayment('multipass', 19.99)">
+                    <div class="payment-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h4>MULTIPLUS</h4>
+                    <div class="price">$19.99 <span>USD</span></div>
+                    <p>SSH + Xray on ports 80/443 + CDN support</p>
+                    <div class="feature-tags" style="justify-content: center; margin-top: 0.5rem;">
+                        <span class="feature-tag">Port 80/443</span>
+                        <span class="feature-tag">Lifetime</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="paymentDetails" class="payment-details">
+                <div class="binance-info">
+                    <div class="qr-container">
+                        <div id="qrcode" class="qr-placeholder"></div>
+                        <p style="margin-top: 0.5rem;">Scan with Binance App</p>
+                    </div>
+                    <div class="wallet-address">
+                        <strong>USDT (BEP20) Wallet Address:</strong><br>
+                        <span id="walletAddress">0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0</span>
+                    </div>
+                    <button class="copy-wallet-btn" onclick="copyWalletAddress()">
+                        <i class="fas fa-copy"></i> Copy Address
+                    </button>
+                    <div class="payment-status waiting" id="paymentStatus">
+                        <i class="fas fa-clock"></i> Waiting for payment...
+                    </div>
+                    <button class="verify-payment-btn" onclick="verifyPayment()">
+                        <i class="fas fa-check-circle"></i> I Have Completed the Payment
                     </button>
                 </div>
-                <div class="code-content" id="vpsplusCode"><span class="comment"># VPSPLUS Installation (All Protocols)</span>
-bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span>
+            </div>
+
+            <!-- Script Display After Payment -->
+            <div id="scriptDisplay" class="script-display">
+                <div class="script-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Payment Confirmed! Your Script is Ready</h3>
+                    <p>Thank you for your purchase. Use the commands below to install.</p>
+                </div>
+                <div class="script-content">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <div class="code-lang">
+                                <i class="fas fa-terminal"></i>
+                                Installation Command
+                            </div>
+                            <button class="copy-btn" onclick="copyScriptCode()">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="code-content" id="scriptCode">
+                            <span class="comment"># VPSPLUS Installation (All Protocols)</span>
+bash &lt;(curl -fsSL https://vpsplus.dev/install.sh)
 
 <span class="comment"># Or using wget</span>
-bash <span class="string">&lt;(wget -qO- https://vpsplus.dev/install.sh)</span>
+bash &lt;(wget -qO- https://vpsplus.dev/install.sh)
 
-<span class="comment"># Install specific protocols only</span>
-bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span> --protocols=xray,wireguard,ssh</div>
-            </div>
-        </div>
-
-        <!-- MULTIPLUS Install -->
-        <div class="install-card" id="multipassInstall" style="display: none; border-color: rgba(255,107,107,0.3);">
-            <h3 style="text-align: center; margin-bottom: 1.5rem;">
-                <i class="fas fa-exchange-alt" style="color: #ff6b6b;"></i> MULTIPLUS Installation
-            </h3>
-            <div class="code-block">
-                <div class="code-header">
-                    <div class="code-lang">
-                        <i class="fas fa-terminal"></i>
-                        Bash Script
+<span class="comment"># After installation, run:</span>
+vpsplus menu
+                        </div>
                     </div>
-                    <button class="copy-btn" onclick="copyCode(this, 'multipass')">
-                        <i class="fas fa-copy"></i>
-                        Copy Command
-                    </button>
-                </div>
-                <div class="code-content" id="multipassCode"><span class="comment"># MULTIPLUS Installation (SSH + Xray on Ports 80/443)</span>
-bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span>
-
-<span class="comment"># Or using wget</span>
-bash <span class="string">&lt;(wget -qO- https://multiplus.dev/install.sh)</span>
-
-<span class="comment"># Install with custom domain for TLS</span>
-bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --domain=your-domain.com</div>
-            </div>
-
-            <div class="install-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Update Your System</h4>
-                        <p>Make sure your <code>Ubuntu 20.04+</code> or <code>Debian 11+</code> system is up to date</p>
+                    <div class="script-note">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Important:</strong> Make sure you're running Ubuntu 20.04+, Debian 11+, or CentOS 8+.
+                        Run the command as root user or with sudo privileges.
                     </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Run Installation Command</h4>
-                        <p>Copy the command above, paste it in your terminal (SSH), and press Enter</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Configure SSH & Xray</h4>
-                        <p>After completion, use <code>multipass</code> command to configure SSH on port 80/443 and Xray on port 443 with TLS</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="code-block">
-                <div class="code-header">
-                    <div class="code-lang">
-                        <i class="fas fa-cog"></i>
-                        MULTIPLUS Commands
-                    </div>
-                    <button class="copy-btn" onclick="copyCode(this, 'multipass-cmds')">
-                        <i class="fas fa-copy"></i>
-                        Copy Commands
-                    </button>
-                </div>
-                <div class="code-content" id="multipassCmds"><span class="comment"># Open MULTIPLUS control panel</span>
-multipass
-
-<span class="comment"># Configure SSH on port 80</span>
-multipass --ssh-port-80
-
-<span class="comment"># Configure SSH on port 443</span>
-multipass --ssh-port-443
-
-<span class="comment"># Setup Xray with TLS on port 443</span>
-multipass --xray-tls
-
-<span class="comment"># Add new SSH user with port 80/443 access</span>
-multipass --add-user
-
-<span class="comment"># Show service status</span>
-multipass --status
-
-<span class="comment"># Monitor traffic on ports 80/443</span>
-multipass --monitor
-
-<span class="comment"># Update MULTIPLUS</span>
-multipass --update</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section download-section" id="download">
-        <div class="section-header reveal">
-            <span class="section-tag">100% Free</span>
-            <h2 class="section-title">Choose <span class="highlight">Your Script</span></h2>
-            <p class="section-desc">
-                Both scripts are completely free forever with continuous updates
-            </p>
-        </div>
-
-        <div class="downloads-grid">
-            <!-- VPSPLUS Card -->
-            <div class="download-card vpsplus reveal">
-                <div class="popular-badge">✨ Most Popular ✨</div>
-                <div class="download-icon">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <h3>VPSPLUS ULTIMATE</h3>
-                <div class="price">
-                    FREE <span>Forever</span>
-                </div>
-                <ul class="features-list">
-                    <li><i class="fas fa-check-circle"></i> 15+ Protocols Complete Support</li>
-                    <li><i class="fas fa-check-circle"></i> SSH, SSR, L2TP, PPTP, SSTP</li>
-                    <li><i class="fas fa-check-circle"></i> WSS, XRAY, OpenVPN, WireGuard</li>
-                    <li><i class="fas fa-check-circle"></i> UDP Custom, ZIVPN UDP, SlowDNS</li>
-                    <li><i class="fas fa-check-circle"></i> Full-Color Interactive Panel</li>
-                    <li><i class="fas fa-check-circle"></i> Unlimited User Management</li>
-                    <li><i class="fas fa-check-circle"></i> Real-time Resource Monitoring</li>
-                    <li><i class="fas fa-check-circle"></i> Automatic Updates</li>
-                    <li><i class="fas fa-check-circle"></i> 24/7 Technical Support</li>
-                </ul>
-                <button class="btn btn-primary" onclick="selectScriptAndScroll('vpsplus')" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-download"></i>
-                    Install VPSPLUS
-                </button>
-            </div>
-
-            <!-- MULTIPLUS Card -->
-            <div class="download-card multipass reveal">
-                <div class="popular-badge" style="background: var(--gradient-multipass);">🔥 Specialized 🔥</div>
-                <div class="download-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <h3>MULTIPLUS</h3>
-                <div class="price">
-                    FREE <span>Forever</span>
-                </div>
-                <ul class="features-list">
-                    <li><i class="fas fa-check-circle"></i> <strong>SSH on Port 80 & 443</strong></li>
-                    <li><i class="fas fa-check-circle"></i> <strong>Xray on Port 443 with TLS</strong></li>
-                    <li><i class="fas fa-check-circle"></i> Firewall Bypass Technology</li>
-                    <li><i class="fas fa-check-circle"></i> CDN & Cloudflare Ready</li>
-                    <li><i class="fas fa-check-circle"></i> Traffic Obfuscation</li>
-                    <li><i class="fas fa-check-circle"></i> HTTPS Traffic Mimicking</li>
-                    <li><i class="fas fa-check-circle"></i> Works on Restricted Networks</li>
-                    <li><i class="fas fa-check-circle"></i> Low Latency Configuration</li>
-                    <li><i class="fas fa-check-circle"></i> Simple Management Commands</li>
-                </ul>
-                <button class="btn btn-multipass" onclick="selectScriptAndScroll('multipass')" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-download"></i>
-                    Install MULTIPLUS
-                </button>
-            </div>
-        </div>
-
-        <!-- Telegram Section with Photo -->
-        <div class="telegram-section reveal">
-            <div class="telegram-content">
-                <div class="telegram-photo">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%231a2332'/%3E%3Ccircle cx='100' cy='100' r='80' fill='url(%23grad)'/%3E%3Ctext x='100' y='115' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3EMP%3C/text%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ee5a24'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E" alt="MULTIPLUS Logo" class="telegram-photo-img">
-                </div>
-                <div class="telegram-info">
-                    <h3><i class="fab fa-telegram"></i> MULTIPLUS Telegram Channel</h3>
-                    <p>Join our Telegram channel for latest updates, support, and news about MULTIPLUS script</p>
-                    <a href="https://t.me/VPSPLUSMODE" target="_blank" class="telegram-btn">
-                        <i class="fab fa-telegram"></i>
-                        Join MULTIPLUS Channel
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -2103,42 +1664,17 @@ multipass --update</div>
             </p>
         </div>
 
-        <div class="community-grid">
-            <article class="community-card reveal">
-                <div class="community-icon" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.05)); color: var(--primary);">
-                    <i class="fab fa-telegram"></i>
+        <div class="telegram-section reveal">
+            <div class="telegram-content">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a2332'/%3E%3Ccircle cx='50' cy='50' r='40' fill='url(%23grad)'/%3E%3Ctext x='50' y='65' text-anchor='middle' fill='white' font-size='30' font-weight='bold'%3EMP%3C/text%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ee5a24'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E" alt="MULTIPLUS" class="telegram-photo-img">
+                <div>
+                    <h3><i class="fab fa-telegram"></i> Join Our Telegram</h3>
+                    <p>Get updates, support, and connect with the community</p>
+                    <a href="https://t.me/VPSPLUSMODE" target="_blank" class="telegram-btn">
+                        <i class="fab fa-telegram"></i> Join Channel
+                    </a>
                 </div>
-                <h4>VPSPLUS Telegram</h4>
-                <p>Latest updates, announcements, and new releases first-hand</p>
-                <a href="https://t.me/VPSPLUSMODE" target="_blank" class="community-link">
-                    Join Now
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </article>
-
-            <article class="community-card reveal">
-                <div class="community-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); color: var(--success);">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-                <h4>WhatsApp Group</h4>
-                <p>Direct technical support and immediate help from the community</p>
-                <a href="#" class="community-link" onclick="showComingSoon(event)">
-                    Join Group
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </article>
-
-            <article class="community-card reveal">
-                <div class="community-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05)); color: var(--accent);">
-                    <i class="fab fa-github"></i>
-                </div>
-                <h4>GitHub Repository</h4>
-                <p>Browse source code, contribute to development, and report issues</p>
-                <a href="#" class="community-link" onclick="showComingSoon(event)">
-                    Visit Repo
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </article>
+            </div>
         </div>
     </section>
 
@@ -2159,24 +1695,23 @@ multipass --update</div>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#protocols">Protocols</a></li>
-                    <li><a href="#install">Installation</a></li>
-                    <li><a href="#download">Download</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Scripts</h4>
-                <ul>
-                    <li><a href="#" onclick="selectScript('vpsplus')">VPSPLUS - All Protocols</a></li>
-                    <li><a href="#" onclick="selectScript('multipass')">MULTIPLUS - Port 80/443</a></li>
+                    <li><a href="#payment">Get Script</a></li>
                 </ul>
             </div>
             <div class="footer-links">
                 <h4>Support</h4>
                 <ul>
+                    <li><a href="https://t.me/VPSPLUSMODE" target="_blank">Telegram Support</a></li>
                     <li><a href="#" onclick="showComingSoon(event)">Documentation</a></li>
                     <li><a href="#" onclick="showComingSoon(event)">FAQ</a></li>
-                    <li><a href="#" onclick="showComingSoon(event)">Report Issue</a></li>
-                    <li><a href="#" onclick="showComingSoon(event)">Feature Request</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#" onclick="showComingSoon(event)">Terms of Service</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showComingSoon(event)">Refund Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -2185,9 +1720,7 @@ multipass --update</div>
             <div class="social-links">
                 <a href="https://t.me/VPSPLUSMODE" target="_blank"><i class="fab fa-telegram"></i></a>
                 <a href="#" onclick="showComingSoon(event)"><i class="fab fa-github"></i></a>
-                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-x-twitter"></i></a>
-                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-youtube"></i></a>
-                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-discord"></i></a>
+                <a href="#" onclick="showComingSoon(event)"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
     </footer>
@@ -2195,12 +1728,159 @@ multipass --update</div>
     <div id="toast" class="toast"></div>
 
     <script>
+        let selectedScript = 'vpsplus';
+        let selectedAmount = 29.99;
+        let paymentConfirmed = false;
+
         // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 800);
+            generateQRCode();
         });
+
+        // Generate QR Code for Binance
+        function generateQRCode() {
+            const walletAddress = document.getElementById('walletAddress').innerText;
+            const amount = selectedAmount;
+            const binancePayUrl = `binancepay://merchant/send?crypto=USDT&address=${walletAddress}&amount=${amount}&chain=BEP20`;
+            
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = '';
+            new QRCode(qrContainer, {
+                text: binancePayUrl,
+                width: 180,
+                height: 180,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        // Select payment method
+        function selectPayment(script, amount) {
+            selectedScript = script;
+            selectedAmount = amount;
+            
+            // Update UI
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            
+            // Show payment details
+            const paymentDetails = document.getElementById('paymentDetails');
+            paymentDetails.classList.add('active');
+            
+            // Reset payment status
+            document.getElementById('paymentStatus').className = 'payment-status waiting';
+            document.getElementById('paymentStatus').innerHTML = '<i class="fas fa-clock"></i> Waiting for payment...';
+            
+            // Hide script display if shown
+            document.getElementById('scriptDisplay').classList.remove('active');
+            paymentConfirmed = false;
+            
+            // Update wallet message based on script
+            const walletSpan = document.getElementById('walletAddress');
+            if (script === 'vpsplus') {
+                walletSpan.innerText = '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb0';
+            } else {
+                walletSpan.innerText = '0x8aBc742d35Cc6634C0532925a3b844Bc9e7595f0b';
+            }
+            
+            generateQRCode();
+            
+            showToast(`Selected ${script.toUpperCase()} - $${amount} USD`, 'fa-binance');
+        }
+
+        // Copy wallet address
+        function copyWalletAddress() {
+            const address = document.getElementById('walletAddress').innerText;
+            navigator.clipboard.writeText(address).then(() => {
+                showToast('Wallet address copied!', 'fa-check-circle');
+            });
+        }
+
+        // Verify payment (simulated - in production would check blockchain)
+        function verifyPayment() {
+            const statusDiv = document.getElementById('paymentStatus');
+            const scriptDisplay = document.getElementById('scriptDisplay');
+            const scriptCode = document.getElementById('scriptCode');
+            
+            // Show loading
+            statusDiv.className = 'payment-status waiting';
+            statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying payment...';
+            
+            // Simulate payment verification (3 seconds)
+            setTimeout(() => {
+                // In a real implementation, this would call your backend API
+                // to check the blockchain for the transaction
+                
+                // For demo, we'll simulate successful payment
+                const isSuccessful = true; // Simulated success
+                
+                if (isSuccessful) {
+                    statusDiv.className = 'payment-status confirmed';
+                    statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Payment confirmed! Your script is ready.';
+                    paymentConfirmed = true;
+                    
+                    // Show script based on selection
+                    if (selectedScript === 'vpsplus') {
+                        scriptCode.innerHTML = `<span class="comment"># VPSPLUS Installation (All Protocols)</span>
+bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span>
+
+<span class="comment"># Or using wget</span>
+bash <span class="string">&lt;(wget -qO- https://vpsplus.dev/install.sh)</span>
+
+<span class="comment"># Install specific protocols</span>
+bash <span class="string">&lt;(curl -fsSL https://vpsplus.dev/install.sh)</span> --protocols=xray,wireguard,ssh
+
+<span class="comment"># After installation, run:</span>
+vpsplus menu
+
+<span class="comment"># Show all commands</span>
+vpsplus --help`;
+                    } else {
+                        scriptCode.innerHTML = `<span class="comment"># MULTIPLUS Installation (SSH + Xray on Ports 80/443)</span>
+bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span>
+
+<span class="comment"># Or using wget</span>
+bash <span class="string">&lt;(wget -qO- https://multiplus.dev/install.sh)</span>
+
+<span class="comment"># Install with custom domain for TLS</span>
+bash <span class="string">&lt;(curl -fsSL https://multiplus.dev/install.sh)</span> --domain=your-domain.com
+
+<span class="comment"># Configure SSH on port 80</span>
+multipass --ssh-port-80
+
+<span class="comment"># Configure SSH on port 443</span>
+multipass --ssh-port-443
+
+<span class="comment"># Setup Xray with TLS on port 443</span>
+multipass --xray-tls
+
+<span class="comment"># After installation, run:</span>
+multipass menu`;
+                    }
+                    
+                    scriptDisplay.classList.add('active');
+                    showToast('Payment confirmed! Your script is ready.', 'fa-check-circle');
+                } else {
+                    statusDiv.className = 'payment-status failed';
+                    statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> Payment not found. Please try again or contact support.';
+                    showToast('Payment verification failed. Please try again.', 'fa-exclamation-circle');
+                }
+            }, 3000);
+        }
+
+        // Copy script code
+        function copyScriptCode() {
+            const code = document.getElementById('scriptCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Installation command copied!', 'fa-check-circle');
+            });
+        }
 
         // Cursor Glow Effect
         const cursorGlow = document.getElementById('cursorGlow');
@@ -2325,39 +2005,6 @@ multipass --update</div>
             });
         });
 
-        // Script Selection Function
-        function selectScript(script) {
-            document.querySelectorAll('.script-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            if (script === 'vpsplus') {
-                document.querySelector('.script-tab.vpsplus').classList.add('active');
-            } else {
-                document.querySelector('.script-tab.multipass').classList.add('active');
-            }
-            
-            document.getElementById('vpsplusPanel').classList.remove('active');
-            document.getElementById('multipassPanel').classList.remove('active');
-            if (script === 'vpsplus') {
-                document.getElementById('vpsplusPanel').classList.add('active');
-            } else {
-                document.getElementById('multipassPanel').classList.add('active');
-            }
-            
-            document.getElementById('vpsplusInstall').style.display = script === 'vpsplus' ? 'block' : 'none';
-            document.getElementById('multipassInstall').style.display = script === 'multipass' ? 'block' : 'none';
-        }
-
-        function selectScriptAndScroll(script) {
-            selectScript(script);
-            document.getElementById('install').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function switchToMultipass() {
-            selectScript('multipass');
-            document.getElementById('install').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
         // Reveal animations
         const revealElements = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
@@ -2407,34 +2054,6 @@ multipass --update</div>
                 }
             }
             requestAnimationFrame(update);
-        }
-
-        // Copy code function
-        function copyCode(btn, type) {
-            let text = '';
-            if (type === 'vpsplus') {
-                text = document.getElementById('vpsplusCode').innerText;
-            } else if (type === 'multipass') {
-                text = document.getElementById('multipassCode').innerText;
-            } else if (type === 'multipass-cmds') {
-                text = document.getElementById('multipassCmds').innerText;
-            } else {
-                const codeBlock = btn.closest('.code-block').querySelector('.code-content');
-                text = codeBlock.innerText;
-            }
-            
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = btn.innerHTML;
-                btn.classList.add('copied');
-                btn.innerHTML = '<i class="fas fa-check"></i> Copied';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = originalText;
-                }, 2000);
-                showToast('Command copied successfully', 'fa-check-circle');
-            }).catch(() => {
-                showToast('Failed to copy, please try again', 'fa-exclamation-circle');
-            });
         }
 
         function showToast(message, icon = 'fa-info-circle') {
